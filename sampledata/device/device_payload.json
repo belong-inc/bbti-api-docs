@@ -1,0 +1,39 @@
+{
+  "program_id": "program_id",
+  "devices": [
+    {
+      "client_ref_id": "device_id_in_partner",
+      "model": "iphone-11",
+      "mno": "simfree",
+      "storage": "256gb",
+      "sim_unlock": "unlocked",
+      "serial_number": "123456789012345",
+      "condition": {
+        "power_on": "CONDITION_PASS",
+        "data_wipe": "CONDITION_PASS",
+        "rooted_phone": "CONDITION_PASS",
+        "water_damaged": "CONDITION_PASS",
+        "engraving": "CONDITION_PASS",
+        "felica": "CONDITION_UNSPECIFIED",
+        "deactivated": "CONDITION_PASS",
+        "takes_charge": "CONDITION_PASS",
+        "wifi": "CONDITION_PASS",
+        "digitizer": "CONDITION_PASS",
+        "nav_menu_burnin": "CONDITION_PASS",
+        "speaker_microphone": "CONDITION_PASS",
+        "rear_camera": "CONDITION_PASS",
+        "volume_button": "CONDITION_PASS",
+        "mute_button": "CONDITION_PASS",
+        "power_button": "CONDITION_PASS",
+        "home_button": "CONDITION_PASS",
+        "buttons": "CONDITION_PASS",
+        "lcd_cracked": "CONDITION_FAIL",
+        "overall_condition": "CONDITION_PASS",
+        "body_bend": "CONDITION_PASS",
+        "swollen_battery": "CONDITION_PASS",
+        "sim_unlock": "CONDITION_PASS",
+        "battery_health": "CONDITION_PASS"
+      }
+    }
+  ]
+}

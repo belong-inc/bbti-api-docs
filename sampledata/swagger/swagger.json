@@ -1,0 +1,437 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "belong/apigw/v1/apigw.proto",
+    "version": "version not set"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/bbti/v1/pricing/devices": {
+      "post": {
+        "summary": "---- Device -----\nPriceDevices expects to receive devices details, grade them, and finally calculate price.",
+        "operationId": "BBTIService_PriceDevices",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/belongapigwv1PriceDevicesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/belongapigwv1PriceDevicesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/bbti/v1/user-kyc": {
+      "post": {
+        "summary": "----- User and KYC -----\nCreateUserAndKyc registers BBTI user detail in user db of Belong, and also apply kyc.",
+        "operationId": "BBTIService_CreateUserAndKyc",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/belongapigwv1CreateUserAndKycResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/belongapigwv1CreateUserAndKycRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "belongapigwv1CreateUserAndKycRequest": {
+      "type": "object",
+      "properties": {
+        "txn_id": {
+          "type": "string",
+          "description": "reference_id is used to determine which transaction should be associated with the user."
+        },
+        "user_kyc_payload": {
+          "$ref": "#/definitions/v1UserKycPayload",
+          "description": "user_kyc_payload is detail of user."
+        }
+      },
+      "description": "CreateUserAndKycRequest is a payload of user-kyc API to register user information and start eKYC process.",
+      "title": "----- User and KYC -----"
+    },
+    "belongapigwv1CreateUserAndKycResponse": {
+      "type": "object",
+      "properties": {
+        "txn_id": {
+          "type": "string",
+          "description": "txn_id is the transaction id sent in the request."
+        },
+        "url": {
+          "type": "string",
+          "description": "url is an URL for eKYC registration. Detail will be filled by users."
+        }
+      },
+      "description": "CreateUserAndKycResponse is a response of user-kyc API."
+    },
+    "belongapigwv1DeviceGradePrice": {
+      "type": "object",
+      "properties": {
+        "reference_id": {
+          "type": "string",
+          "description": "reference_id is an id provided by the client to track a device in the client side."
+        },
+        "grade": {
+          "$ref": "#/definitions/v1Grade",
+          "description": "grade is the grade used to calculate price of a device."
+        },
+        "price": {
+          "type": "string",
+          "description": "price is the price of device."
+        }
+      },
+      "description": "DeviceGradePrice contains device id in the client side, Grade in BBTI, and the price."
+    },
+    "belongapigwv1PriceDevicesRequest": {
+      "type": "object",
+      "properties": {
+        "program_id": {
+          "type": "string",
+          "description": "program_id is an id provided for partner program."
+        },
+        "devices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Device"
+          },
+          "description": "devices is list of device."
+        }
+      },
+      "description": "PriceDevicesRequest is request of pricing/devices API."
+    },
+    "belongapigwv1PriceDevicesResponse": {
+      "type": "object",
+      "properties": {
+        "txn_id": {
+          "type": "string",
+          "description": "txn_id is an id of the transaction to track request. This is generated when device quest is processed."
+        },
+        "device_grade_price": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/belongapigwv1DeviceGradePrice"
+          },
+          "description": "device_grade_price is list of device id in partner, grade, and price calculated in BBTI service."
+        }
+      },
+      "description": "PriceDevicesResponse is response of pricing/devices API."
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "runtimeError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "typeDate": {
+      "type": "object",
+      "properties": {
+        "year": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Year of date. Must be from 1 to 9999, or 0 if specifying a date without\na year."
+        },
+        "month": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Month of year. Must be from 1 to 12, or 0 if specifying a year without a\nmonth and day."
+        },
+        "day": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Day of month. Must be from 1 to 31 and valid for the year and month, or 0\nif specifying a year by itself or a year and month where the day is not\nsignificant."
+        }
+      },
+      "description": "* A full date, with non-zero year, month and day values\n* A month and day value, with a zero year, e.g. an anniversary\n* A year on its own, with zero month and day values\n* A year and month value, with a zero day, e.g. a credit card expiration date\n\nRelated types are [google.type.TimeOfDay][google.type.TimeOfDay] and `google.protobuf.Timestamp`.",
+      "title": "Represents a whole or partial calendar date, e.g. a birthday. The time of day\nand time zone are either specified elsewhere or are not significant. The date\nis relative to the Proleptic Gregorian Calendar. This can represent:"
+    },
+    "v1Condition": {
+      "type": "string",
+      "enum": [
+        "CONDITION_UNSPECIFIED",
+        "CONDITION_PASS",
+        "CONDITION_FAIL"
+      ],
+      "default": "CONDITION_UNSPECIFIED"
+    },
+    "v1Device": {
+      "type": "object",
+      "properties": {
+        "client_ref_id": {
+          "type": "string",
+          "description": "client_ref_id is an optional field that is used as id defined by API client.\nserial_number will be used to determine device in the response this is blank."
+        },
+        "model": {
+          "type": "string",
+          "title": "model is device model name"
+        },
+        "oem": {
+          "type": "string",
+          "description": "oem is maker of the device such as Apple or Google."
+        },
+        "mno": {
+          "type": "string",
+          "title": "mno is a network carrier"
+        },
+        "storage": {
+          "type": "string",
+          "description": "storage is ROM which most phones share the capacity."
+        },
+        "memory": {
+          "type": "string",
+          "description": "memory is RAM which limited phones share."
+        },
+        "sim_unlock": {
+          "type": "string",
+          "description": "sim_unlock indicates if sim is locked or not."
+        },
+        "serial_number": {
+          "type": "string",
+          "description": "serial_number is an unique id given for each device. IMEI is used for mobile phones."
+        },
+        "client_type": {
+          "type": "string",
+          "description": "client_type is an optional field to provide who is the API caller."
+        },
+        "condition": {
+          "$ref": "#/definitions/v1DeviceCondition",
+          "description": "condition is condition of device."
+        },
+        "device_id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "device_id is id to track device in Belong;"
+        }
+      },
+      "title": "Device is basic information of devices"
+    },
+    "v1DeviceCondition": {
+      "type": "object",
+      "properties": {
+        "power_on": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if power can be on."
+        },
+        "data_wipe": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if data can be wiped."
+        },
+        "rooted_phone": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if not rooted or jail broken."
+        },
+        "water_damaged": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if no water damage."
+        },
+        "engraving": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if no engraving."
+        },
+        "felica": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if felica data can be wiped."
+        },
+        "deactivated": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if no activation lock."
+        },
+        "takes_charge": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if the phone can be charged."
+        },
+        "wifi": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if wifi works."
+        },
+        "digitizer": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if touch panel works and no bruising in LCD."
+        },
+        "nav_menu_burnin": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if no burn in."
+        },
+        "speaker_microphone": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if speaker and microphone works."
+        },
+        "rear_camera": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if rear camera works."
+        },
+        "volume_button": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if volume button works."
+        },
+        "mute_button": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if mute button works."
+        },
+        "power_button": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if power button works."
+        },
+        "home_button": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if home button works."
+        },
+        "buttons": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if volume, mute, power, and home button all work."
+        },
+        "lcd_cracked": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if no LCD crack."
+        },
+        "overall_condition": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if the other conditions."
+        },
+        "body_bend": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if no body bend."
+        },
+        "swollen_battery": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if no swollen battery."
+        },
+        "sim_unlock": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if SIM is not locked."
+        },
+        "battery_health": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if battery health is over a threshold."
+        }
+      },
+      "title": "DeviceCondition is condition of a device based on the inspection"
+    },
+    "v1Grade": {
+      "type": "string",
+      "enum": [
+        "GRADE_UNSPECIFIED",
+        "GRADE_A",
+        "GRADE_B",
+        "GRADE_C",
+        "GRADE_D"
+      ],
+      "default": "GRADE_UNSPECIFIED"
+    },
+    "v1UserKycPayload": {
+      "type": "object",
+      "properties": {
+        "last_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name_kana": {
+          "type": "string"
+        },
+        "first_name_kana": {
+          "type": "string"
+        },
+        "date_of_birth": {
+          "$ref": "#/definitions/typeDate"
+        },
+        "zip": {
+          "type": "string",
+          "title": "zip is zipcode"
+        },
+        "state": {
+          "type": "string",
+          "title": "state is Prefecture in Japan"
+        },
+        "city": {
+          "type": "string",
+          "title": "city is Ku level"
+        },
+        "address": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "occupation": {
+          "type": "string"
+        }
+      },
+      "description": "UserKycPayload includes all information which are required to register user, and perform KYC."
+    }
+  }
+}
