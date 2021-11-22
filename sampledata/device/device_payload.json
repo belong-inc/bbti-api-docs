@@ -33,7 +33,9 @@
         "swollen_battery": "CONDITION_PASS",
         "sim_unlock": "CONDITION_PASS",
         "battery_health": "CONDITION_PASS"
-      }
+      },
+      "device_id": "device_id"
     }
-  ]
+  ],
+  "store_id": 123
 }

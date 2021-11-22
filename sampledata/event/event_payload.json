@@ -1,0 +1,6 @@
+{
+  "event": {
+    "type": "BBTI_EVENT_TYPE_KYC",
+    "action": "APPLIED"
+  }
+}

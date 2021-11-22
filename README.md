@@ -8,9 +8,16 @@ The API have endpoints for device registration and user registration.
 ## About API Disclosure
 The BBTI API is currently provided only to trusted partners.
 
-If you are interested in the API please contact us through our [contact page](https://about.belong.co.jp/contact).
+If you are interested in the API please contact us through our [contact page](https://about.belong.co.jp/contact) or our sales representatives.
 
 # APIs
+Standard API call flow of BBTI is done through two steps:
+
+1. Send device information including the condition so that calculate grade and price.
+1. Send user detail to go through eKYC process.
+
+![standard_api_call](./diagrams/standard_api_call/standard_api_call.png)
+
 ## Device
 Device registration in BBTI API handles basic information (model, storage, sim status) as well as device conditions (status of water damage, LCD, camera, and e.t.c.).   
 
@@ -28,6 +35,14 @@ The user registration starts an eKYC process. User needs to complete the eKYC by
 
 ```text
 ${API_SERVER}/bbti/v1/user-kyc
+```
+
+## Event notification
+This endpoint is used to notify an event of BBTI such as application completion.
+
+
+```text
+${API_SERVER}/bbti/v1/transactions/{transaction_id}/event
 ```
 
 ## Further Information.
