@@ -19,12 +19,23 @@ Standard API call flow of BBTI is done through two steps:
 ![standard_api_call](./diagrams/standard_api_call/standard_api_call.png)
 
 ## Device
-Device registration in BBTI API handles basic information (model, storage, sim status) as well as device conditions (status of water damage, LCD, camera, and e.t.c.).   
+
+### Standard flow
+Device registration in BBTI API handles basic information (model, storage, sim status) as well as device conditions (status of water damage, LCD, camera, and e.t.c.).
 
 The API calculate a grade of the device based on the condition, then calculate the price of device. 
 
 ```text
 ${API_SERVER}/bbti/v1/pricing/devices
+```
+
+### App code flow
+Device registration in the BBTI API handles basic information (model, storage, SIM status) and device state (status of water damage, LCD, camera, etc.) in the form of predefined codes.
+
+The API calculate a grade of the device based on the condition, then calculate the price of device. 
+
+```text
+${API_SERVER}/bbti/v1/pricing/codes
 ```
 
 ## User
@@ -43,6 +54,14 @@ This endpoint is used to notify an event of BBTI such as application completion.
 
 ```text
 ${API_SERVER}/bbti/v1/transactions/{transaction_id}/event
+```
+
+## Delivery
+This endpoint is used to regiter delivery information to BBTI.
+
+
+```text
+${API_SERVER}/bbti/v1/delivery
 ```
 
 ## Further Information.
