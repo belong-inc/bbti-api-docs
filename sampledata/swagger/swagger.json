@@ -27,6 +27,102 @@
     "application/json"
   ],
   "paths": {
+    "/bbti/v1/delivery": {
+      "post": {
+        "summary": "RegisterDelivery registers delivery information.",
+        "operationId": "BBTIService_RegisterDelivery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/belongapigwv1RegisterDeliveryResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/belongapigwv1RegisterDeliveryRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/bbti/v1/pricing/codes": {
+      "post": {
+        "summary": "PriceByAppCodes calculate grade and price based on app code.\nThe app code is consist of sku, device condition and some other metadata.",
+        "operationId": "BBTIService_PriceByAppCodes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/belongapigwv1PriceByAppCodesResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/belongapigwv1PriceByAppCodesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
     "/bbti/v1/pricing/devices": {
       "post": {
         "summary": "PriceDevices expects to receive devices details, grade them, and finally calculate price.",
@@ -126,7 +222,7 @@
                   "$ref": "#/definitions/v1BBTIEvent"
                 }
               },
-              "description": "BBTIEvent is an payload of event for BBTI."
+              "description": "ReceiveEventNotificationRequest is a request to notify event for a transaction."
             }
           }
         ],
@@ -217,27 +313,50 @@
       },
       "description": "CreateUserAndKycResponse is a response of user-kyc API."
     },
-    "belongapigwv1DeviceGradePrice": {
+    "belongapigwv1PriceByAppCodesRequest": {
       "type": "object",
       "properties": {
-        "reference_id": {
+        "program_id": {
           "type": "string",
-          "description": "reference_id is an id provided by the client to track a device in the client side."
+          "title": "program_id is and id given to client to categorize the request"
         },
-        "grade": {
-          "$ref": "#/definitions/v1Grade"
+        "device_app_codes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1DeviceAppCode"
+          }
         },
-        "price": {
-          "type": "string",
-          "description": "price is string to handle float without unexpected diff."
-        },
-        "delta_price": {
+        "store_id": {
           "type": "integer",
-          "format": "int32",
-          "description": "delta_price represents the price of the addition or reduction."
+          "format": "int64",
+          "description": "store_id is BBTI unique ID representing the purchase store."
+        },
+        "submission_id": {
+          "type": "string",
+          "description": "submission_id is an optional field that can track the transaction by API caller."
         }
       },
-      "description": "DeviceGradePrice contains device id in the client side, Grade in BBTI, and the price."
+      "description": "PriceByAppCodesRequest is request having client's contractual id and device information in consistent code format."
+    },
+    "belongapigwv1PriceByAppCodesResponse": {
+      "type": "object",
+      "properties": {
+        "transaction_id": {
+          "type": "string",
+          "description": "transaction_id is an id in BBTI to track a transaction."
+        },
+        "device_tracking_id": {
+          "type": "string",
+          "description": "device_tracking_id is an id to group up devices."
+        },
+        "device_grade_price": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1DeviceGradePrice"
+          }
+        }
+      },
+      "description": "PriceByAppCodesResponse is response of grading, pricing and creation of devices on BBTI."
     },
     "belongapigwv1PriceDevicesRequest": {
       "type": "object",
@@ -257,6 +376,10 @@
           "type": "integer",
           "format": "int64",
           "description": "store_id is an optional field, which is an id of the location where BBTI is applied."
+        },
+        "submission_id": {
+          "type": "string",
+          "description": "submission_id is an optional field that can track the transaction by API caller."
         }
       },
       "description": "PriceDevicesRequest is request of pricing/devices API."
@@ -275,7 +398,7 @@
         "device_grade_price": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/belongapigwv1DeviceGradePrice"
+            "$ref": "#/definitions/v1DeviceGradePrice"
           },
           "description": "device_grade_price is list of device id in partner, grade, and price calculated in BBTI service."
         }
@@ -284,19 +407,72 @@
     },
     "belongapigwv1ReceiveEventNotificationResponse": {
       "type": "object",
-      "description": "ReceiveEventNotificationRequest is a request to notify event for a transaction."
+      "description": "ReceiveEventNotificationResponse has nothing in the successful request."
+    },
+    "belongapigwv1RegisterDeliveryRequest": {
+      "type": "object",
+      "properties": {
+        "transaction_id": {
+          "type": "string",
+          "description": "transaction_id is an id in BBTI to track a transaction."
+        },
+        "delivery_pattern": {
+          "$ref": "#/definitions/v1DeliveryPattern",
+          "description": "delivery_pattern is types of delivery."
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "zip": {
+          "type": "string",
+          "description": "zip is zipcode."
+        },
+        "state": {
+          "type": "string",
+          "description": "state is Prefecture in Japan."
+        },
+        "city": {
+          "type": "string",
+          "description": "city is Ku level."
+        },
+        "address": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string",
+          "description": "phone is phone number in format without hiphen."
+        },
+        "pic_date": {
+          "$ref": "#/definitions/typeDate",
+          "description": "pic_date is the date for pickup.\nThis is only used when delivery_pattern is pickup."
+        },
+        "pic_time": {
+          "$ref": "#/definitions/v1PicTime",
+          "description": "pic_time is the time frame for pickup.\nThis is only used when delivery_pattern is pickup."
+        }
+      },
+      "description": "RegisterDeliveryRequest is request of delivery API."
+    },
+    "belongapigwv1RegisterDeliveryResponse": {
+      "type": "object",
+      "properties": {
+        "reception_no": {
+          "type": "string"
+        }
+      },
+      "description": "RegisterDeliveryResponse is response of delivery API."
     },
     "protobufAny": {
       "type": "object",
       "properties": {
-        "type_url": {
+        "@type": {
           "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "byte"
         }
-      }
+      },
+      "additionalProperties": {}
     },
     "rpcStatus": {
       "type": "object",
@@ -335,7 +511,8 @@
           "description": "Day of a month. Must be from 1 to 31 and valid for the year and month, or 0\nto specify a year by itself or a year and month where the day isn't\nsignificant."
         }
       },
-      "description": "Represents a whole or partial calendar date, such as a birthday. The time of\nday and time zone are either specified elsewhere or are insignificant. The\ndate is relative to the Gregorian Calendar. This can represent one of the following:\n* A full date, with non-zero year, month, and day values\n* A month and day value, with a zero year, such as an anniversary\n* A year on its own, with zero month and day values\n* A year and month value, with a zero day, such as a credit card expiration\ndate\nRelated types are [google.type.TimeOfDay][google.type.TimeOfDay] and `google.protobuf.Timestamp`."
+      "description": "* A full date, with non-zero year, month, and day values\n* A month and day value, with a zero year, such as an anniversary\n* A year on its own, with zero month and day values\n* A year and month value, with a zero day, such as a credit card expiration\ndate\n\nRelated types are [google.type.TimeOfDay][google.type.TimeOfDay] and\n`google.protobuf.Timestamp`.",
+      "title": "Represents a whole or partial calendar date, such as a birthday. The time of\nday and time zone are either specified elsewhere or are insignificant. The\ndate is relative to the Gregorian Calendar. This can represent one of the\nfollowing:"
     },
     "v1BBTIEvent": {
       "type": "object",
@@ -366,6 +543,16 @@
         "CONDITION_FAIL"
       ],
       "default": "CONDITION_UNSPECIFIED"
+    },
+    "v1DeliveryPattern": {
+      "type": "string",
+      "enum": [
+        "DELIVERY_PATTERN_UNSPECIFIED",
+        "DELIVERY_PATTERN_PICKUP",
+        "DELIVERY_PATTERN_BRING"
+      ],
+      "default": "DELIVERY_PATTERN_UNSPECIFIED",
+      "description": "DeliveryPattern is types of delivery."
     },
     "v1Device": {
       "type": "object",
@@ -415,7 +602,22 @@
           "format": "uint64",
           "title": "device_id is id to track device in Belong;"
         }
-      }
+      },
+      "description": "Device is basic information of devices."
+    },
+    "v1DeviceAppCode": {
+      "type": "object",
+      "properties": {
+        "client_ref_id": {
+          "type": "string",
+          "description": "client_ref_id is an optional field that is used as id defined by API client."
+        },
+        "app_code": {
+          "type": "string",
+          "description": "app_code contains version, sku, device condition, and others. used to define the grade and calculate the price."
+        }
+      },
+      "description": "DeviceAppCode contains device id in the client side and device information code."
     },
     "v1DeviceCondition": {
       "type": "object",
@@ -516,7 +718,38 @@
           "$ref": "#/definitions/v1Condition",
           "description": "OK if battery health is over a threshold."
         }
-      }
+      },
+      "description": "DeviceCondition is condition of a device based on the inspection."
+    },
+    "v1DeviceGradePrice": {
+      "type": "object",
+      "properties": {
+        "reference_id": {
+          "type": "string",
+          "description": "reference_id is an id provided by the client to track a device in the client side."
+        },
+        "model_key": {
+          "type": "string",
+          "description": "model_key is device model alias."
+        },
+        "storage_key": {
+          "type": "string",
+          "description": "storage_key is device storage alias."
+        },
+        "grade": {
+          "$ref": "#/definitions/v1Grade"
+        },
+        "price": {
+          "type": "string",
+          "description": "price is string to handle float without unexpected diff."
+        },
+        "delta_price": {
+          "type": "integer",
+          "format": "int32",
+          "description": "delta_price represents the price of the addition or reduction."
+        }
+      },
+      "description": "DeviceGradePrice contains device id in the client side, Grade in BBTI, and the price."
     },
     "v1Grade": {
       "type": "string",
@@ -528,6 +761,18 @@
         "GRADE_D"
       ],
       "default": "GRADE_UNSPECIFIED"
+    },
+    "v1PicTime": {
+      "type": "string",
+      "enum": [
+        "PIC_TIME_UNSPECIFIED",
+        "PIC_TIME_AM",
+        "PIC_TIME_14",
+        "PIC_TIME_16",
+        "PIC_TIME_18"
+      ],
+      "default": "PIC_TIME_UNSPECIFIED",
+      "description": "PicTime is types of the time frame for pickup."
     },
     "v1UserKycPayload": {
       "type": "object",

@@ -37,5 +37,6 @@
       "device_id": "device_id"
     }
   ],
+  "submission_id": "tracking_id_in_partner",
   "store_id": 123
 }
