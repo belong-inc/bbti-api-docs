@@ -1,0 +1,11 @@
+{
+    "transaction_id": "transaction123",
+    "delivery_pattern": "DELIVERY_PATTERN_BRING",
+    "last_name": "ビロング",
+    "first_name": "タロウ",
+    "zip": "1070052",
+    "state": "東京都",
+    "city": "港区",
+    "address": "赤坂",
+    "phone": "09000000000"
+  }

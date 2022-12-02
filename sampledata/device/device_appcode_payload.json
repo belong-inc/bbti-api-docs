@@ -1,0 +1,11 @@
+{
+    "program_id": "program_id",
+    "device_app_codes": [
+        {
+            "client_ref_id": "device_id_in_partner",
+            "app_code": "predefined_format_code"
+        }
+    ],
+    "submission_id": "tracking_id_in_partner",
+    "store_id": 123
+}
