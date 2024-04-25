@@ -11,16 +11,16 @@ The BBTI API is currently provided only to trusted partners.
 If you are interested in the API please contact us through our [contact page](https://about.belong.co.jp/contact) or our sales representatives.
 
 # APIs
-Standard API call flow of BBTI is done through two steps:
+## Standard API call flow of BBTI is done through two steps:
 
 1. Send device information including the condition so that calculate grade and price.
 1. Send user detail to go through eKYC process.
 
 ![standard_api_call](./diagrams/standard_api_call/standard_api_call.png)
 
-## Device
+### Device
 
-### Standard flow
+#### Standard flow
 Device registration in BBTI API handles basic information (model, storage, sim status) as well as device conditions (status of water damage, LCD, camera, and e.t.c.).
 
 The API calculate a grade of the device based on the condition, then calculate the price of device. 
@@ -29,7 +29,7 @@ The API calculate a grade of the device based on the condition, then calculate t
 ${API_SERVER}/bbti/v1/pricing/devices
 ```
 
-### App code flow
+#### App code flow
 Device registration in the BBTI API handles basic information (model, storage, SIM status) and device state (status of water damage, LCD, camera, etc.) in the form of predefined codes.
 
 The API calculate a grade of the device based on the condition, then calculate the price of device. 
@@ -38,7 +38,7 @@ The API calculate a grade of the device based on the condition, then calculate t
 ${API_SERVER}/bbti/v1/pricing/codes
 ```
 
-## User
+### User
 User registration in BBTI handles user information for the registered device in previous step.
 
 The user registration starts an eKYC process. User needs to complete the eKYC by filling out forms in the provided URL.
@@ -48,7 +48,7 @@ The user registration starts an eKYC process. User needs to complete the eKYC by
 ${API_SERVER}/bbti/v1/user-kyc
 ```
 
-## Event notification
+### Event notification
 This endpoint is used to notify an event of BBTI such as application completion.
 
 
@@ -56,7 +56,7 @@ This endpoint is used to notify an event of BBTI such as application completion.
 ${API_SERVER}/bbti/v1/transactions/{transaction_id}/event
 ```
 
-## Delivery
+### Delivery
 This endpoint is used to regiter delivery information to BBTI.
 
 
@@ -64,18 +64,49 @@ This endpoint is used to regiter delivery information to BBTI.
 ${API_SERVER}/bbti/v1/delivery
 ```
 
-## Further Information.
-More API details are described in [here](./sampledata/swagger) as Swagger document.
+## Pricing only API call flow of BBTI is done through four steps:
 
-The API and docs is expected to be changed/enriched in the future.
+1. Get the list of manufacturers.
+1. Send manufacturer to get the list of series.
+1. Send series to get the list of models.
+1. Send the information required for pricing and get the price.
 
+![pricing_only](./diagrams/pricing_only/pricing_only.png)
+
+### ListManufacturers
+This endpoint is used to get a list of Manufacturers associated with Models available for BBTI.
+
+```text
+${API_SERVER}/gw/bbti/v1/manufacturers
+```
+
+### ListSeries
+This endpoint is used to get a list of Series associated with Models available for BBTI.
+
+```text
+${API_SERVER}/gw/bbti/v1/manufacturers/{manufacturerKey}/series
+```
+
+### ListModels
+This endpoint is used to get a list of Models available for BBTI.
+
+```text
+${API_SERVER}/gw/bbti/v1/manufacturers/{manufacturerKey}/series/{seriesKey}/models
+```
+
+### GetPrice
+This endpoint returns a price based on the given program_id, model, storage, and grade.
+
+```text
+${API_SERVER}/gw/bbti/v1/models/{modelKey}/pricing
+```
 
 ## Authentication
 Authentication is done through API key and secret. Once the contract of API usage is settled, we will provide API key and secret.
 
 API call is done through Bearer Token which can be obtained via API key and secret. 
 
-## Sample
+### Sample
 Bearer Token can be obtained by following command.
 
 ```shell
@@ -91,7 +122,10 @@ curl -H "Authorization: Bearer ${API_AUTH_TOKEN}" -X POST \
  ${API_SERVER}/bbti/v1/pricing/devices
 ```
 
+## Further Information.
+More API details are described in [here](./sampledata/swagger) as Swagger document.
+
+The API and docs is expected to be changed/enriched in the future.
 
 # License
 This project is licensed under the Apache-2.0 License.
-
