@@ -1,0 +1,457 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Belong BBTI API",
+    "version": "1.0",
+    "contact": {
+      "name": "Belong BBTI Support",
+      "url": "https://github.com/belong-inc/bbti-api-docs"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "https://github.com/belong-inc/bbti-api-docs/blob/main/LICENSE"
+    }
+  },
+  "tags": [
+    {
+      "name": "BBTIService"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/gw/bbti/v1/manufacturers": {
+      "get": {
+        "summary": "ListManufacturers returns a list of manufacturers available for BBTI.",
+        "operationId": "BBTIService_ListManufacturers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/gwbbtiv1ListManufacturersResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/gw/bbti/v1/manufacturers/{manufacturerKey}/series": {
+      "get": {
+        "summary": "ListSeries returns a list of series available for BBTI.",
+        "operationId": "BBTIService_ListSeries",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/gwbbtiv1ListSeriesResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "manufacturerKey",
+            "description": "manufacturer_key is used for filtering manufacturer in path parameter.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/gw/bbti/v1/manufacturers/{manufacturerKey}/series/{seriesKey}/models": {
+      "get": {
+        "summary": "ListModels returns a list of models available for BBTI.",
+        "operationId": "BBTIService_ListModels",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/gwbbtiv1ListModelsResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "manufacturerKey",
+            "description": "manufacturer_key is used for filtering models in path parameter.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "seriesKey",
+            "description": "series_key is used for filtering series in path parameter.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/gw/bbti/v1/models/{modelKey}/pricing": {
+      "post": {
+        "summary": "GetPrice returns a price for a given program_id, model, storage and grade.",
+        "operationId": "BBTIService_GetPrice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetPriceResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "modelKey",
+            "description": "model_key is model alias.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "storageKey": {
+                  "type": "string",
+                  "description": "storage_key is storage alias."
+                },
+                "grade": {
+                  "$ref": "#/definitions/v1GetPriceRequestGrade"
+                },
+                "programId": {
+                  "type": "string"
+                }
+              },
+              "description": "GetPriceRequest is a request message to get a price."
+            }
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "gwbbtiv1ListManufacturersResponse": {
+      "type": "object",
+      "properties": {
+        "manufacturers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/gwbbtiv1ListManufacturersResponseManufacturer"
+          }
+        }
+      },
+      "description": "ListManufacturersResponse is a response of manufacturer list."
+    },
+    "gwbbtiv1ListManufacturersResponseManufacturer": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "key is the manufacturer key."
+        },
+        "value": {
+          "type": "string",
+          "description": "value is the manufacturer value."
+        }
+      }
+    },
+    "gwbbtiv1ListModelsResponse": {
+      "type": "object",
+      "properties": {
+        "models": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/gwbbtiv1Model"
+          }
+        }
+      },
+      "description": "ListModelsResponse is a response of model list."
+    },
+    "gwbbtiv1ListSeriesResponse": {
+      "type": "object",
+      "properties": {
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/gwbbtiv1Series"
+          }
+        }
+      }
+    },
+    "gwbbtiv1Model": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "storages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/gwbbtiv1ModelStorage"
+          }
+        },
+        "category": {
+          "$ref": "#/definitions/gwbbtiv1ModelCategory"
+        },
+        "series": {
+          "$ref": "#/definitions/gwbbtiv1ModelSeries"
+        }
+      }
+    },
+    "gwbbtiv1ModelCategory": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "gwbbtiv1ModelSeries": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "gwbbtiv1ModelStorage": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "gwbbtiv1Series": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/definitions/gwbbtiv1SeriesCategory"
+        },
+        "manufacturer": {
+          "$ref": "#/definitions/gwbbtiv1SeriesManufacturer"
+        },
+        "numberOfModels": {
+          "type": "integer",
+          "format": "int64",
+          "description": "number_of_models is the number of all models in series."
+        }
+      }
+    },
+    "gwbbtiv1SeriesCategory": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "gwbbtiv1SeriesManufacturer": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1GetPriceRequestGrade": {
+      "type": "string",
+      "enum": [
+        "GRADE_UNSPECIFIED",
+        "GRADE_A",
+        "GRADE_B",
+        "GRADE_C",
+        "GRADE_D"
+      ],
+      "default": "GRADE_UNSPECIFIED"
+    },
+    "v1GetPriceResponse": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "string",
+          "description": "price is string to handle float without unexpected diff."
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "ApiKeyAuth": {
+      "type": "apiKey",
+      "description": "Authentication token generated by auth service is expected as `Bearer: AUTH_TOKEN` format.",
+      "name": "Authentication",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "externalDocs": {
+    "description": "bbti-api-docs",
+    "url": "https://github.com/belong-inc/bbti-api-docs"
+  }
+}
