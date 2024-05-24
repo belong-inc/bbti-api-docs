@@ -1,0 +1,13 @@
+sku_id,grade,year,month,price,model,model_value,storage,storage_value,carrier,carrier_value,series,series_value,manufacturer,manufacturer_value
+1,a,2024,1,10000.00,iphone-8,iPhone 8,64gb,64GB,simfree,SIMフリー版,iphone,iPhone,apple,Apple
+1,b,2024,1,7500.00,iphone-8,iPhone 8,64gb,64GB,simfree,SIMフリー版,iphone,iPhone,apple,Apple
+1,c,2024,1,5000.00,iphone-8,iPhone 8,64gb,64GB,simfree,SIMフリー版,iphone,iPhone,apple,Apple
+2,a,2024,1,10000.00,iphone-8,iPhone 8,128gb,128GB,simfree,SIMフリー版,iphone,iPhone,apple,Apple
+2,b,2024,1,7500.00,iphone-8,iPhone 8,128gb,128GB,simfree,SIMフリー版,iphone,iPhone,apple,Apple
+2,c,2024,1,5000.00,iphone-8,iPhone 8,128gb,128GB,simfree,SIMフリー版,iphone,iPhone,apple,Apple
+3,a,2024,1,10000.00,iphone-8,iPhone 8,256gb,256GB,simfree,SIMフリー版,iphone,iPhone,apple,Apple
+3,b,2024,1,7500.00,iphone-8,iPhone 8,256gb,256GB,simfree,SIMフリー版,iphone,iPhone,apple,Apple
+3,c,2024,1,5000.00,iphone-8,iPhone 8,256gb,256GB,simfree,SIMフリー版,iphone,iPhone,apple,Apple
+4,a,2024,1,10000.00,pixel-4a,Pixel 4a,128gb,128GB,simfree,SIMフリー版,pixel,Pixel,google,Google
+4,b,2024,1,7500.00,pixel-4a,Pixel 4a,128gb,128GB,simfree,SIMフリー版,pixel,Pixel,google,Google
+4,c,2024,1,5000.00,pixel-4a,Pixel 4a,128gb,128GB,simfree,SIMフリー版,pixel,Pixel,google,Google
