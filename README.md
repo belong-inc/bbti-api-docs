@@ -67,7 +67,7 @@ After registering transaction information, an eKYC application, etc. is required
 
 ### AppCode flow is processed through following three steps:
 
-1. Get model and price list CSV from bbti.
+1. Find model, price, and related info form a CSV provided from Belong in advance.
 1. Send device information including the condition so that calculate grade and price.
 1. Send user detail to go through eKYC process.
 
