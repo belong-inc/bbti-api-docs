@@ -27,7 +27,7 @@
     "application/json"
   ],
   "paths": {
-    "/bbti/v1/delivery": {
+    "/bbti/v1/delivery/register": {
       "post": {
         "summary": "RegisterDelivery registers delivery information.",
         "operationId": "BBTIService_RegisterDelivery",
@@ -63,6 +63,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "RegisterDeliveryRequest is request of delivery API.",
             "in": "body",
             "required": true,
             "schema": {
@@ -111,6 +112,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "PriceByAppCodesRequest is request having client's contractual id and device information in consistent code format.",
             "in": "body",
             "required": true,
             "schema": {
@@ -123,15 +125,15 @@
         ]
       }
     },
-    "/bbti/v1/pricing/devices": {
+    "/bbti/v1/pricing/products": {
       "post": {
-        "summary": "PriceDevices expects to receive devices details, grade them, and finally calculate price.",
-        "operationId": "BBTIService_PriceDevices",
+        "summary": "PriceProducts expects to receive products details, grade them, and finally calculate price.",
+        "operationId": "BBTIService_PriceProducts",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/belongapigwv1PriceDevicesResponse"
+              "$ref": "#/definitions/belongapigwv1PriceProductsResponse"
             }
           },
           "403": {
@@ -159,10 +161,11 @@
         "parameters": [
           {
             "name": "body",
+            "description": "PriceProductsRequest is request of pricing/products API.",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/belongapigwv1PriceDevicesRequest"
+              "$ref": "#/definitions/belongapigwv1PriceProductsRequest"
             }
           }
         ],
@@ -171,7 +174,7 @@
         ]
       }
     },
-    "/bbti/v1/transactions/{transaction_id}/event": {
+    "/bbti/v1/transactions/{transactionId}/event": {
       "post": {
         "summary": "ReceiveEventNotification receive notifications of user actions on transaction.",
         "operationId": "BBTIService_ReceiveEventNotification",
@@ -206,7 +209,8 @@
         },
         "parameters": [
           {
-            "name": "transaction_id",
+            "name": "transactionId",
+            "description": "transaction_id is a unique id in BBTI to track a transaction and products.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -219,7 +223,8 @@
               "type": "object",
               "properties": {
                 "event": {
-                  "$ref": "#/definitions/v1BBTIEvent"
+                  "$ref": "#/definitions/v1BBTIEvent",
+                  "description": "event is a notification of user actions on transaction."
                 }
               },
               "description": "ReceiveEventNotificationRequest is a request to notify event for a transaction."
@@ -267,6 +272,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "CreateUserAndKycRequest is a payload of user-kyc API to register user information and start eKYC process.",
             "in": "body",
             "required": true,
             "schema": {
@@ -295,6 +301,14 @@
         "user_kyc_payload": {
           "$ref": "#/definitions/v1UserKycPayload",
           "description": "user_kyc_payload is detail of user."
+        },
+        "redirect_url": {
+          "type": "string",
+          "description": "redirect_url is an optional field that defined by client side to redirect after kyc completion.\nIf the query parameter of the redirect url contains the string `APPID`, it will be replaced by unique ID issued by KYC."
+        },
+        "submission_id": {
+          "type": "string",
+          "description": "submission_id is an optional field that can track the transaction by API caller."
         }
       },
       "description": "CreateUserAndKycRequest is a payload of user-kyc API to register user information and start eKYC process."
@@ -323,6 +337,7 @@
         "device_app_codes": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1DeviceAppCode"
           }
         },
@@ -352,25 +367,28 @@
         "device_grade_price": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1DeviceGradePrice"
-          }
+            "type": "object",
+            "$ref": "#/definitions/belongapigwv1ProductGradePrice"
+          },
+          "description": "device_grade_price is a list of product grade and price."
         }
       },
       "description": "PriceByAppCodesResponse is response of grading, pricing and creation of devices on BBTI."
     },
-    "belongapigwv1PriceDevicesRequest": {
+    "belongapigwv1PriceProductsRequest": {
       "type": "object",
       "properties": {
         "program_id": {
           "type": "string",
           "description": "program_id is an id provided for partner program."
         },
-        "devices": {
+        "products": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Device"
+            "type": "object",
+            "$ref": "#/definitions/belongapigwv1PriceProductsRequestProduct"
           },
-          "description": "devices is list of device."
+          "description": "products is a list of products that client wants to price."
         },
         "store_id": {
           "type": "integer",
@@ -382,28 +400,92 @@
           "description": "submission_id is an optional field that can track the transaction by API caller."
         }
       },
-      "description": "PriceDevicesRequest is request of pricing/devices API."
+      "description": "PriceProductsRequest is request of pricing/products API."
     },
-    "belongapigwv1PriceDevicesResponse": {
+    "belongapigwv1PriceProductsRequestProduct": {
+      "type": "object",
+      "properties": {
+        "client_ref_id": {
+          "type": "string",
+          "description": "client_ref_id is an field that is an id of a product defined in the client side."
+        },
+        "model_key": {
+          "type": "string",
+          "description": "model_key is an field that is used for specifying sku."
+        },
+        "carrier_key": {
+          "type": "string",
+          "description": "carrier_key is an optional field that is used for specifying sku."
+        },
+        "storage_key": {
+          "type": "string",
+          "description": "storage_key is an field that is used for specifying sku. It is optional for earphone."
+        },
+        "memory_key": {
+          "type": "string",
+          "description": "memory_key is an field that is used for specifying sku. It is optional for smartphone and earphone."
+        },
+        "simlock_key": {
+          "type": "string",
+          "description": "simlock_key is an optional field that is used for specifying sku."
+        },
+        "serial_number": {
+          "type": "string",
+          "description": "serial_number is an optional field that is unique id given for each device.\nex. IMEI is used for mobile phones."
+        },
+        "condition": {
+          "$ref": "#/definitions/v1ProductCondition",
+          "description": "condition is condition of the product."
+        }
+      }
+    },
+    "belongapigwv1PriceProductsResponse": {
       "type": "object",
       "properties": {
         "transaction_id": {
           "type": "string",
-          "description": "txn_id is an id of the transaction to track request. This is generated when device quest is processed."
+          "description": "transaction_id is a unique id in BBTI to track a transaction and products."
         },
-        "device_tracking_id": {
-          "type": "string",
-          "description": "device_tracking_id is an id to group up devices."
-        },
-        "device_grade_price": {
+        "product_grade_price": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1DeviceGradePrice"
+            "type": "object",
+            "$ref": "#/definitions/belongapigwv1ProductGradePrice"
           },
-          "description": "device_grade_price is list of device id in partner, grade, and price calculated in BBTI service."
+          "description": "product_grade_price is a list of product grade and price."
         }
       },
-      "description": "PriceDevicesResponse is response of pricing/devices API."
+      "description": "PriceProductsResponse is response of pricing/products API."
+    },
+    "belongapigwv1ProductGradePrice": {
+      "type": "object",
+      "properties": {
+        "reference_id": {
+          "type": "string",
+          "description": "reference_id is an id provided by the client to track a device in the client side."
+        },
+        "model": {
+          "$ref": "#/definitions/belongcatalogv1Model",
+          "description": "model contains the model alias and the formal name of the device."
+        },
+        "storage": {
+          "$ref": "#/definitions/catalogv1Storage",
+          "description": "storage contains the storage alias and the formal name of the storage."
+        },
+        "memory": {
+          "$ref": "#/definitions/catalogv1Memory",
+          "description": "memory contains memory information including alias, formal name and capacity in MB."
+        },
+        "grade": {
+          "$ref": "#/definitions/belongproductresourcesv1Grade",
+          "description": "grade is the calculated grade based on the condition of the product."
+        },
+        "price": {
+          "type": "string",
+          "description": "price is string to handle float without unexpected diff."
+        }
+      },
+      "description": "ProductGradePrice is a list of product grade and price."
     },
     "belongapigwv1ReceiveEventNotificationResponse": {
       "type": "object",
@@ -421,14 +503,24 @@
           "description": "delivery_pattern is types of delivery."
         },
         "last_name": {
-          "type": "string"
+          "type": "string",
+          "description": "last_name is the users last name / family name."
         },
         "first_name": {
-          "type": "string"
-        },
-        "zip": {
           "type": "string",
-          "description": "zip is zipcode."
+          "description": "first_name is the users first name / given name."
+        },
+        "last_name_kana": {
+          "type": "string",
+          "description": "last_name_kana is the katakana spelling of last name."
+        },
+        "first_name_kana": {
+          "type": "string",
+          "description": "first_name_kana is the katakana spelling of first name."
+        },
+        "zip_code": {
+          "type": "string",
+          "description": "zip is zipcode in format without hyphen."
         },
         "state": {
           "type": "string",
@@ -439,19 +531,24 @@
           "description": "city is Ku level."
         },
         "address": {
-          "type": "string"
-        },
-        "phone": {
           "type": "string",
-          "description": "phone is phone number in format without hiphen."
+          "description": "address is the part of the address that follows the prefecture and city information."
         },
-        "pic_date": {
+        "building": {
+          "type": "string",
+          "description": "building is optional field that is used for specifying building name and room number."
+        },
+        "phone_number": {
+          "type": "string",
+          "description": "phone_number is phone number in format without hyphen."
+        },
+        "pickup_date": {
           "$ref": "#/definitions/typeDate",
-          "description": "pic_date is the date for pickup.\nThis is only used when delivery_pattern is pickup."
+          "description": "pickup_date is the date for pickup.\nThis is only used when delivery_pattern is pickup."
         },
-        "pic_time": {
-          "$ref": "#/definitions/v1PicTime",
-          "description": "pic_time is the time frame for pickup.\nThis is only used when delivery_pattern is pickup."
+        "pickup_time": {
+          "$ref": "#/definitions/v1PickupTime",
+          "description": "pickup_time is the time frame for pickup.\nThis is only used when delivery_pattern is pickup."
         }
       },
       "description": "RegisterDeliveryRequest is request of delivery API."
@@ -459,11 +556,96 @@
     "belongapigwv1RegisterDeliveryResponse": {
       "type": "object",
       "properties": {
-        "reception_no": {
-          "type": "string"
+        "tracking_number": {
+          "type": "string",
+          "description": "tracking_number is optional fields that is used for tracking the delivery."
+        },
+        "qr_code": {
+          "type": "string",
+          "description": "qr_code is used by the delivery provider to issue an invoice and tracking number when the user chooses to bring.\nThis field returns the image/png data converted into a base64 string."
+        },
+        "barcode": {
+          "type": "string",
+          "description": "barcode is used by the delivery provider to issue an invoice and tracking number when the user chooses to bring.\nBasically, QRCode is used, but some convenience stores require barcode.\nThis field returns the image/png data converted into a base64 string."
+        },
+        "reservation_id": {
+          "type": "string",
+          "description": "reservation_id like the reservation_pw, is used to refer to the slip information during exceptions such as when the QR code cannot be read."
+        },
+        "reservation_pw": {
+          "type": "string",
+          "description": "reservation_pw like the reservation_id, is used to refer to the slip information during exceptions such as when the QR code cannot be read."
         }
       },
       "description": "RegisterDeliveryResponse is response of delivery API."
+    },
+    "belongcatalogv1Model": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "key is normalized name."
+        },
+        "value": {
+          "type": "string",
+          "description": "value is formal name."
+        }
+      },
+      "description": "Model represents device model."
+    },
+    "belongproductresourcesv1Grade": {
+      "type": "string",
+      "enum": [
+        "GRADE_UNSPECIFIED",
+        "GRADE_S",
+        "GRADE_A",
+        "GRADE_B",
+        "GRADE_C",
+        "GRADE_D"
+      ],
+      "default": "GRADE_UNSPECIFIED"
+    },
+    "belongproductv1Condition": {
+      "type": "string",
+      "enum": [
+        "CONDITION_UNSPECIFIED",
+        "CONDITION_PASS",
+        "CONDITION_FAIL"
+      ],
+      "default": "CONDITION_UNSPECIFIED"
+    },
+    "catalogv1Memory": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "key is normalized name of memory."
+        },
+        "value": {
+          "type": "string",
+          "description": "value is formal name of memory."
+        },
+        "value_mb": {
+          "type": "integer",
+          "format": "int64",
+          "description": "value_mb is volume of memory."
+        }
+      },
+      "description": "Memory is memory size of device."
+    },
+    "catalogv1Storage": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "key is normalized name of storage."
+        },
+        "value": {
+          "type": "string",
+          "description": "value is formal name of storage."
+        }
+      },
+      "description": "Storage is storage size of device."
     },
     "protobufAny": {
       "type": "object",
@@ -487,6 +669,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -511,8 +694,7 @@
           "description": "Day of a month. Must be from 1 to 31 and valid for the year and month, or 0\nto specify a year by itself or a year and month where the day isn't\nsignificant."
         }
       },
-      "description": "* A full date, with non-zero year, month, and day values\n* A month and day value, with a zero year, such as an anniversary\n* A year on its own, with zero month and day values\n* A year and month value, with a zero day, such as a credit card expiration\ndate\n\nRelated types are [google.type.TimeOfDay][google.type.TimeOfDay] and\n`google.protobuf.Timestamp`.",
-      "title": "Represents a whole or partial calendar date, such as a birthday. The time of\nday and time zone are either specified elsewhere or are insignificant. The\ndate is relative to the Gregorian Calendar. This can represent one of the\nfollowing:"
+      "description": "* A full date, with non-zero year, month, and day values\n* A month and day value, with a zero year, such as an anniversary\n* A year on its own, with zero month and day values\n* A year and month value, with a zero day, such as a credit card expiration\ndate\n\nRelated types are [google.type.TimeOfDay][google.type.TimeOfDay] and\n`google.protobuf.Timestamp`."
     },
     "v1BBTIEvent": {
       "type": "object",
@@ -530,19 +712,11 @@
       "type": "string",
       "enum": [
         "BBTI_EVENT_TYPE_UNSPECIFIED",
-        "BBTI_EVENT_TYPE_KYC"
+        "BBTI_EVENT_TYPE_KYC",
+        "BBTI_EVENT_TYPE_DELIVERY"
       ],
       "default": "BBTI_EVENT_TYPE_UNSPECIFIED",
       "description": "BBTIEventType is types of BBTI transactions event."
-    },
-    "v1Condition": {
-      "type": "string",
-      "enum": [
-        "CONDITION_UNSPECIFIED",
-        "CONDITION_PASS",
-        "CONDITION_FAIL"
-      ],
-      "default": "CONDITION_UNSPECIFIED"
     },
     "v1DeliveryPattern": {
       "type": "string",
@@ -553,57 +727,6 @@
       ],
       "default": "DELIVERY_PATTERN_UNSPECIFIED",
       "description": "DeliveryPattern is types of delivery."
-    },
-    "v1Device": {
-      "type": "object",
-      "properties": {
-        "client_ref_id": {
-          "type": "string",
-          "description": "client_ref_id is an optional field that is used as id defined by API client.\nIf Hyla inspection is used, the reference id needs to be set.\nserial_number will be used to determine device in the response this is blank."
-        },
-        "model": {
-          "type": "string",
-          "title": "model is device model name"
-        },
-        "oem": {
-          "type": "string",
-          "description": "oem is maker of the device such as Apple or Google."
-        },
-        "mno": {
-          "type": "string",
-          "title": "mno is a network carrier"
-        },
-        "storage": {
-          "type": "string",
-          "description": "storage is ROM which most phones share the capacity."
-        },
-        "memory": {
-          "type": "string",
-          "description": "memory is RAM which limited phones share."
-        },
-        "sim_unlock": {
-          "type": "string",
-          "description": "sim_unlock indicates if sim is locked or not."
-        },
-        "serial_number": {
-          "type": "string",
-          "description": "serial_number is an unique id given for each device. IMEI is used for mobile phones."
-        },
-        "client_type": {
-          "type": "string",
-          "description": "client_type is an optional field to provide who is the API caller."
-        },
-        "condition": {
-          "$ref": "#/definitions/v1DeviceCondition",
-          "description": "condition is condition of device."
-        },
-        "device_id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "device_id is id to track device in Belong;"
-        }
-      },
-      "description": "Device is basic information of devices."
     },
     "v1DeviceAppCode": {
       "type": "object",
@@ -619,160 +742,32 @@
       },
       "description": "DeviceAppCode contains device id in the client side and device information code."
     },
-    "v1DeviceCondition": {
-      "type": "object",
-      "properties": {
-        "power_on": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if power can be on."
-        },
-        "data_wipe": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if data can be wiped."
-        },
-        "rooted_phone": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if not rooted or jail broken."
-        },
-        "water_damaged": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if no water damage."
-        },
-        "engraving": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if no engraving."
-        },
-        "felica": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if felica data can be wiped."
-        },
-        "deactivated": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if no activation lock."
-        },
-        "takes_charge": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if the phone can be charged."
-        },
-        "wifi": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if wifi works."
-        },
-        "digitizer": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if touch panel works and no bruising in LCD."
-        },
-        "nav_menu_burnin": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if no burn in."
-        },
-        "speaker_microphone": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if speaker and microphone works."
-        },
-        "rear_camera": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if rear camera works."
-        },
-        "volume_button": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if volume button works."
-        },
-        "mute_button": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if mute button works."
-        },
-        "power_button": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if power button works."
-        },
-        "home_button": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if home button works."
-        },
-        "buttons": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if volume, mute, power, and home button all work."
-        },
-        "lcd_cracked": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if no LCD crack."
-        },
-        "overall_condition": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if the other conditions."
-        },
-        "body_bend": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if no body bend."
-        },
-        "swollen_battery": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if no swollen battery."
-        },
-        "sim_unlock": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if SIM is not locked."
-        },
-        "battery_health": {
-          "$ref": "#/definitions/v1Condition",
-          "description": "OK if battery health is over a threshold."
-        }
-      },
-      "description": "DeviceCondition is condition of a device based on the inspection."
-    },
-    "v1DeviceGradePrice": {
-      "type": "object",
-      "properties": {
-        "reference_id": {
-          "type": "string",
-          "description": "reference_id is an id provided by the client to track a device in the client side."
-        },
-        "model_key": {
-          "type": "string",
-          "description": "model_key is device model alias."
-        },
-        "storage_key": {
-          "type": "string",
-          "description": "storage_key is device storage alias."
-        },
-        "grade": {
-          "$ref": "#/definitions/v1Grade"
-        },
-        "price": {
-          "type": "string",
-          "description": "price is string to handle float without unexpected diff."
-        },
-        "delta_price": {
-          "type": "integer",
-          "format": "int32",
-          "description": "delta_price represents the price of the addition or reduction."
-        }
-      },
-      "description": "DeviceGradePrice contains device id in the client side, Grade in BBTI, and the price."
-    },
-    "v1Grade": {
+    "v1PickupTime": {
       "type": "string",
       "enum": [
-        "GRADE_UNSPECIFIED",
-        "GRADE_A",
-        "GRADE_B",
-        "GRADE_C",
-        "GRADE_D"
+        "PICKUP_TIME_UNSPECIFIED",
+        "PICKUP_TIME_ALL_DAY",
+        "PICKUP_TIME_TO_13",
+        "PICKUP_TIME_14_TO_16",
+        "PICKUP_TIME_16_TO_18",
+        "PICKUP_TIME_17_TO_1830"
       ],
-      "default": "GRADE_UNSPECIFIED"
+      "default": "PICKUP_TIME_UNSPECIFIED",
+      "description": "PickupTime is types of the time frame for pickup.\n\n - PICKUP_TIME_ALL_DAY: PICKUP_TIME_ALL_DAY indicates that is do not specify a pick-up time and are available all day.\n - PICKUP_TIME_TO_13: PICKUP_TIME_TO_13 time range is `-13:00`.\n - PICKUP_TIME_14_TO_16: PICKUP_TIME_14_TO_16 time range is `14:00-16:00`.\n - PICKUP_TIME_16_TO_18: PICKUP_TIME_16_TO_18 time range is `16:00-18:00`.\n - PICKUP_TIME_17_TO_1830: PICKUP_TIME_17_TO_1830 time range is `17:00-18:30`."
     },
-    "v1PicTime": {
-      "type": "string",
-      "enum": [
-        "PIC_TIME_UNSPECIFIED",
-        "PIC_TIME_AM",
-        "PIC_TIME_14",
-        "PIC_TIME_16",
-        "PIC_TIME_18"
-      ],
-      "default": "PIC_TIME_UNSPECIFIED",
-      "description": "PicTime is types of the time frame for pickup."
+    "v1ProductCondition": {
+      "type": "object",
+      "properties": {
+        "functionality": {
+          "$ref": "#/definitions/belongproductv1Condition",
+          "description": "OK if there are no functional defects such as not turning on."
+        },
+        "appearance": {
+          "$ref": "#/definitions/belongproductv1Condition",
+          "description": "OK if there are no appearance defects such as a cracked screen."
+        }
+      },
+      "description": "ProductCondition is condition of a product based on the inspection.\nNot all fields are used by the product. It depends on the product type."
     },
     "v1UserKycPayload": {
       "type": "object",

@@ -1,7 +1,9 @@
 # Model price list CSV columns
 
 | ColumnName         | Type   | Description                                 |
-| ------------------ | ------ | ------------------------------------------- |
+|--------------------|--------|---------------------------------------------|
+| category           | string | Normalized category name                    |
+| category_value     | string | Formal category name                        |
 | sku_id             | number | Unique identifier for the product in Belong |
 | grade              | string | Product grade applicable to price           |
 | year               | number | Year in which the price applies             |

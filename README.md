@@ -108,12 +108,12 @@ ${API_SERVER}/gw/bbti/v1/models/{modelKey}/pricing
 ```
 
 ### Standard API
-Device registration in BBTI API handles basic information (model, storage, sim status) as well as device conditions (status of water damage, LCD, camera, and e.t.c.).
+Device registration in BBTI API handles basic information (model, storage, sim status) as well as device conditions (functionality and appearance).
 
 The API calculate a grade of the device based on the condition, then calculate the price of device.
 
 ```text
-${API_SERVER}/bbti/v1/pricing/devices
+${API_SERVER}/bbti/v1/pricing/products
 ```
 
 ### App code API
@@ -146,7 +146,7 @@ ${API_SERVER}/bbti/v1/transactions/{transaction_id}/event
 This endpoint is used to register delivery information to BBTI.
 
 ```text
-${API_SERVER}/bbti/v1/delivery
+${API_SERVER}/bbti/v1/delivery/register
 ```
 
 ## Authentication
@@ -159,7 +159,7 @@ Bearer Token can be obtained by following command.
 
 ```shell
 curl -H "Authorization: Basic ${CLIENT_AUTH_TOKEN}"  \
-   -sS "${AUTH_SERVER}/auth/v1/token"
+   -sS "${AUTH_SERVER}/auth/v2/token"
 ```
 
 Set the extracted token to auth header and send request.
@@ -167,13 +167,13 @@ Set the extracted token to auth header and send request.
 ```shell
 curl -H "Authorization: Bearer ${API_AUTH_TOKEN}" -X POST \
  -d '{ "test":"payload"}' \
- ${API_SERVER}/bbti/v1/pricing/devices
+ ${API_SERVER}/bbti/v1/pricing/products
 ```
 
 ## API FAQ
 
 - If transaction information is also managed on the API client side, can it be linked to transactions on the Belong side?
-  - Yes. In that case, please set the client side transaction id as `submission_id` in the pricing api (`/pricing/devices` or `/pricing/codes`) payload.
+  - Yes. In that case, please set the client side transaction id as `submission_id` in the pricing api (`/pricing/products` or `/pricing/codes`) payload.
   - This allows to search for transactions on the Belong side by transaction ID on the client side.
 
 ## Further Information.

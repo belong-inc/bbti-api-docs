@@ -3,9 +3,10 @@
     "delivery_pattern": "DELIVERY_PATTERN_BRING",
     "last_name": "ビロング",
     "first_name": "タロウ",
-    "zip": "1070052",
+    "zip_code": "1070052",
     "state": "東京都",
     "city": "港区",
-    "address": "赤坂",
-    "phone": "09000000000"
-  }
+    "address": "赤坂６丁目４−１０",
+    "building": "ZENビル 4F",
+    "phone_number": "05017467082"
+}
