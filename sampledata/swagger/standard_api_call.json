@@ -174,7 +174,7 @@
         ]
       }
     },
-    "/bbti/v1/transactions/{transactionId}/event": {
+    "/bbti/v1/transactions/{transaction_id}/event": {
       "post": {
         "summary": "ReceiveEventNotification receive notifications of user actions on transaction.",
         "operationId": "BBTIService_ReceiveEventNotification",
@@ -209,7 +209,7 @@
         },
         "parameters": [
           {
-            "name": "transactionId",
+            "name": "transaction_id",
             "description": "transaction_id is a unique id in BBTI to track a transaction and products.",
             "in": "path",
             "required": true,
