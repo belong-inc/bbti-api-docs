@@ -103,6 +103,8 @@ ${API_SERVER}/gw/bbti/v1/manufacturers/{manufacturerKey}/series/{seriesKey}/mode
 ### GetPrice
 This endpoint returns a price based on the given program_id, model, storage, and grade.
 
+Please note that this API call does not create transaction data on the Belong side.
+
 ```text
 ${API_SERVER}/gw/bbti/v1/models/{modelKey}/pricing
 ```
