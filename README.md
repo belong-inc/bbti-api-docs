@@ -158,10 +158,14 @@ API call is done through Bearer Token which can be obtained via API key and secr
 
 ### Sample
 Bearer Token can be obtained by following command.
+Please use the `access_token` included in the response.
 
 ```shell
-curl -H "Authorization: Basic ${CLIENT_AUTH_TOKEN}"  \
-   -sS "${AUTH_SERVER}/auth/v2/token"
+curl -sS \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -H "Authorization: Basic ${CLIENT_AUTH_TOKEN}" \
+  --data-urlencode "grant_type=client_credentials" \
+  "${AUTH_SERVER}/auth/v2/token"
 ```
 
 Set the extracted token to auth header and send request.
