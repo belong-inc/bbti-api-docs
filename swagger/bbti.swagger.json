@@ -1040,11 +1040,11 @@
         },
         "lastNameKana": {
           "type": "string",
-          "description": "lastName_kana is the user's last name in kana."
+          "description": "lastNameKana is the user's last name in kana."
         },
         "firstNameKana": {
           "type": "string",
-          "description": "firstName_kana is the user's first name in kana."
+          "description": "firstNameKana is the user's first name in kana."
         },
         "zip": {
           "type": "string",
@@ -1207,11 +1207,11 @@
         },
         "lastNameKana": {
           "type": "string",
-          "description": "lastName_kana is the user's last name in kana."
+          "description": "lastNameKana is the user's last name in kana."
         },
         "firstNameKana": {
           "type": "string",
-          "description": "firstName_kana is the user's first name in kana."
+          "description": "firstNameKana is the user's first name in kana."
         },
         "dateOfBirth": {
           "$ref": "#/definitions/typeDate",
@@ -1239,7 +1239,7 @@
         },
         "redirectUrl": {
           "type": "string",
-          "description": "redirectUrl is an optional field that defined by client side to redirect after eKYC application.\nDomains that can be specified as redirect URLs must be notified to Belong before being sent via the API."
+          "description": "redirectUrl is an optional field that is defined by client side to redirect after eKYC application.\nDomains that can be specified as redirect URLs must be notified to Belong before being sent via the API."
         }
       },
       "description": "IssueEKYCApplicationURLRequest is a request to issue eKYC application URL.\nThis request requires personal information of the user.\nOnce registered, the information cannot be changed or retrieved via API."

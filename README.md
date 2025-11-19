@@ -16,7 +16,7 @@ If you are interested in the API please contact us through our [contact page](ht
 There are two ways to get the model information and prices.
 
 - API
-  - API clients can search for available the `ListManufacturers`, `ListSeries`, `ListModels`, and `ListPrices` for trade-ins.
+  - API clients can search for the available the `ListManufacturers`, `ListSeries`, `ListModels`, and `ListPrices` for trade-ins.
   - Please refer to the APIs section for API details.
 - CSV
   - A new price list is issued each time a price update is made on the Belong side.
@@ -25,7 +25,7 @@ There are two ways to get the model information and prices.
 ## [2] Get the price
 
 - API
-  - `ListPrices` API can be used to get the list of price from the model key information retrieved in [1] and the selected conditions.
+  - `ListPrices` API can be used to get the list of prices from the model key information retrieved in [1] and the selected conditions.
   - Please refer to the APIs section for API details.
 
 ## [3] Apply trade-in and register the transaction on the Belong side
@@ -76,7 +76,7 @@ GET https://${API_SERVER}/v1/prices
 
 ### Standard API
 Device registration in BBTI API handles basic information (model, storage, etc.) as well as device conditions (functionality and appearance).
-The API calculate a grade of the device based on the condition, then calculate the price of device.
+The API calculates a grade of the device based on the condition, then calculate the price of device.
 
 ```text
 POST https://${API_SERVER}/v1/pricing/products
@@ -84,7 +84,7 @@ POST https://${API_SERVER}/v1/pricing/products
 
 ### App code API
 Device registration in the BBTI API handles basic information (model, storage, SIM status) and device state (functionality and appearance, etc.) in the form of predefined code formats.
-The API calculate a grade of the device based on the condition, then calculate the price of device.
+The API calculates a grade of the device based on the condition, then calculate the price of device.
 
 ```text
 POST https://${API_SERVER}/v1/pricing/codes
@@ -144,10 +144,10 @@ curl -H "Authorization: Bearer ${API_AUTH_TOKEN}" -X POST \
   - Yes. In that case, please set the client side transaction id as `submissionId` in the pricing api (`/pricing/products` or `/pricing/codes`) payload.
   - This allows to search for transactions on the Belong side by transaction ID on the client side.
 
-## Further Information.
+## Further Information
 More API details are described in [here](./swagger) as Swagger document.
 
-The API and docs is expected to be changed/enriched in the future.
+The API and docs are expected to be changed/enriched in the future.
 
 # License
 This project is licensed under the Apache-2.0 License.

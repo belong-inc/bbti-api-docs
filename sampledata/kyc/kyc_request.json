@@ -4,6 +4,8 @@
   "email": "test@belong.com",
   "lastName": "Belong",
   "firstName": "Taro",
+  "lastNameKana": "ビロング",
+  "firstNameKana": "タロウ",
   "dateOfBirth": {
     "year": 2000,
     "month": 1,
