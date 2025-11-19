@@ -1,0 +1,12 @@
+{
+  "manufacturers": [
+    {
+      "key": "apple",
+      "value": "Apple"
+    },
+    {
+      "key": "google",
+      "value": "Google"
+    }
+  ]
+}

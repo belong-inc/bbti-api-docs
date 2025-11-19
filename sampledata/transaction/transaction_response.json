@@ -1,0 +1,17 @@
+{
+  "transactionId": "transaction123",
+  "dealId": "deal123",
+  "status": "TRANSACTION_STATUS_DELIVERY_REGISTERED",
+  "product": {
+    "offeredModelName": "iPhone 8",
+    "offeredStorageName": "64GB",
+    "offeredCarrierName": "SIMフリー",
+    "offeredGrade": "GRADE_A",
+    "offeredPrice": 10000,
+    "confirmedModelName": "iPhone 8",
+    "confirmedStorageName": "256GB",
+    "confirmedCarrierName": "SIMフリー",
+    "confirmedGrade": "GRADE_B",
+    "confirmedPrice": 30000
+  }
+}

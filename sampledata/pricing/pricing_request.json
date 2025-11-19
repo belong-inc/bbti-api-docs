@@ -1,0 +1,12 @@
+{
+  "programId": "sample",
+  "submissionId": "orderId123",
+  "modelKey": "iphone-8",
+  "storageKey": "64gb",
+  "carrierKey": "simfree",
+  "condition": {
+    "functionality": "CONDITION_PASS",
+    "appearance": "CONDITION_FAIL"
+  },
+  "campaignCode": "campaignXYZ"
+}

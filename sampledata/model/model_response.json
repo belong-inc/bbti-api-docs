@@ -1,0 +1,69 @@
+{
+  "nextPageToken": "sample_page_token",
+  "models": [
+    {
+      "model": {
+        "key": "iphone-8",
+        "value": "iPhone 8"
+      },
+      "storages": [
+        {
+          "key": "64gb",
+          "value": "64GB"
+        },
+        {
+          "key": "128gb",
+          "value": "128GB"
+        }
+      ],
+      "carriers": [
+        {
+          "key": "simfree",
+          "value": "SIMフリー版"
+        }
+      ],
+      "category": {
+        "key": "smartphone",
+        "value": "スマートフォン"
+      },
+      "manufacturer": {
+        "key": "apple",
+        "value": "Apple"
+      },
+      "series": {
+        "key": "iphone",
+        "value": "iPhone"
+      }
+    },
+    {
+      "model": {
+        "key": "pixel-4a",
+        "value": "Pixel 4a"
+      },
+      "storages": [
+        {
+          "key": "128gb",
+          "value": "128GB"
+        }
+      ],
+      "carriers": [
+        {
+          "key": "simfree",
+          "value": "SIMフリー版"
+        }
+      ],
+      "category": {
+        "key": "smartphone",
+        "value": "スマートフォン"
+      },
+      "manufacturer": {
+        "key": "google",
+        "value": "Google"
+      },
+      "series": {
+        "key": "pixel",
+        "value": "Pixel"
+      }
+    }
+  ]
+}

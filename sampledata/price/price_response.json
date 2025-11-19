@@ -1,0 +1,146 @@
+{
+  "nextPageToken": "sample_page_token",
+  "models": [
+    {
+      "model": {
+        "key": "iphone-8",
+        "value": "iPhone 8"
+      },
+      "storages": [
+        {
+          "key": "64gb",
+          "value": "64GB"
+        },
+        {
+          "key": "128gb",
+          "value": "128GB"
+        }
+      ],
+      "carriers": [
+        {
+          "key": "simfree",
+          "value": "SIMフリー版"
+        }
+      ],
+      "category": {
+        "key": "smartphone",
+        "value": "スマートフォン"
+      },
+      "series": {
+        "key": "iphone",
+        "value": "iPhone"
+      },
+      "prices": [
+        {
+          "storage": {
+            "key": "64gb",
+            "value": "64GB"
+          },
+          "carrier": {
+            "key": "simfree",
+            "value": "SIMフリー版"
+          },
+          "gradePrices": [
+            {
+              "grade": "GRADE_A",
+              "price": 20000,
+              "deltaPrice": 500
+            },
+            {
+              "grade": "GRADE_B",
+              "price": 15000,
+              "deltaPrice": 0
+            },
+            {
+              "grade": "GRADE_C",
+              "price": 10000,
+              "deltaPrice": 0
+            }
+          ]
+        },
+        {
+          "storage": {
+            "key": "128gb",
+            "value": "128GB"
+          },
+          "carrier": {
+            "key": "simfree",
+            "value": "SIMフリー版"
+          },
+          "gradePrices": [
+            {
+              "grade": "GRADE_A",
+              "price": 10000,
+              "deltaPrice": 500
+            },
+            {
+              "grade": "GRADE_B",
+              "price": 7500,
+              "deltaPrice": 0
+            },
+            {
+              "grade": "GRADE_C",
+              "price": 5000,
+              "deltaPrice": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "model": {
+        "key": "pixel-4a",
+        "value": "Pixel 4a"
+      },
+      "storages": [
+        {
+          "key": "128gb",
+          "value": "128GB"
+        }
+      ],
+      "carriers": [
+        {
+          "key": "simfree",
+          "value": "SIMフリー版"
+        }
+      ],
+      "category": {
+        "key": "smartphone",
+        "value": "スマートフォン"
+      },
+      "series": {
+        "key": "pixel",
+        "value": "Pixel"
+      },
+      "prices": [
+        {
+          "storage": {
+            "key": "128gb",
+            "value": "128GB"
+          },
+          "carrier": {
+            "key": "simfree",
+            "value": "SIMフリー版"
+          },
+          "gradePrices": [
+            {
+              "grade": "GRADE_A",
+              "price": 10000,
+              "deltaPrice": 500
+            },
+            {
+              "grade": "GRADE_B",
+              "price": 7500,
+              "deltaPrice": 0
+            },
+            {
+              "grade": "GRADE_C",
+              "price": 5000,
+              "deltaPrice": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "series": [
+    {
+      "series": {
+        "key": "iphone",
+        "value": "iPhone"
+      },
+      "category": {
+        "key": "smartphone",
+        "value": "スマートフォン"
+      },
+      "manufacturer": {
+        "key": "apple",
+        "value": "Apple"
+      },
+      "numberOfModels": 10
+    },
+    {
+      "series": {
+        "key": "pixel",
+        "value": "Pixel"
+      },
+      "category": {
+        "key": "smartphone",
+        "value": "スマートフォン"
+      },
+      "manufacturer": {
+        "key": "google",
+        "value": "Google"
+      },
+      "numberOfModels": 10
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Model price list CSV columns
 
+We **recommend** using the API, but you can also download the following sample model and price information in CSV format.
+
 | ColumnName         | Type   | Description                                 |
 |--------------------|--------|---------------------------------------------|
 | category           | string | Normalized category name                    |

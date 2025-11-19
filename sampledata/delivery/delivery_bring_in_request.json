@@ -1,0 +1,14 @@
+{
+  "transactionId": "transaction123",
+  "deliveryPattern": "DELIVERY_PATTERN_BRING_IN",
+  "lastName": "Belong",
+  "firstName": "Taro",
+  "lastNameKana": "ビロング",
+  "firstNameKana": "タロウ",
+  "zip": "1070052",
+  "state": "東京都",
+  "city": "港区",
+  "address": "赤坂６丁目４−１０",
+  "building": "ZENビル ４F",
+  "phoneNumber": "08000000000"
+}

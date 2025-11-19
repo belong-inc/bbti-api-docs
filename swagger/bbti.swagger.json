@@ -1,0 +1,1514 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Belong BBTI API",
+    "version": "1.0",
+    "contact": {
+      "name": "Belong BBTI Support",
+      "url": "https://github.com/belong-inc/bbti-api-docs"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "https://github.com/belong-inc/bbti-api-docs/blob/main/LICENSE"
+    }
+  },
+  "tags": [
+    {
+      "name": "BBTIService"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/delivery/register": {
+      "post": {
+        "summary": "RegisterDelivery registers delivery information.",
+        "operationId": "RegisterDelivery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisterDeliveryResponse"
+            }
+          },
+          "401": {
+            "description": "Returned when the request lacks valid authentication credentials.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "RegisterDeliveryRequest is a request to register delivery information.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisterDeliveryRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/v1/kyc": {
+      "post": {
+        "summary": "IssueEKYCApplicationURL issues a URL for eKYC application.",
+        "operationId": "IssueEKYCApplicationURL",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1IssueEKYCApplicationURLResponse"
+            }
+          },
+          "401": {
+            "description": "Returned when the request lacks valid authentication credentials.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "IssueEKYCApplicationURLRequest is a request to issue eKYC application URL.\nThis request requires personal information of the user.\nOnce registered, the information cannot be changed or retrieved via API.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1IssueEKYCApplicationURLRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/v1/manufacturers": {
+      "get": {
+        "summary": "ListManufacturers returns a list of manufacturers available for BBTI.",
+        "operationId": "ListManufacturers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListManufacturersResponse"
+            }
+          },
+          "401": {
+            "description": "Returned when the request lacks valid authentication credentials.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "categories",
+            "description": "categories is used for filtering category in query params.\nIt expects a single or comma separated list of category keys, e.g., smartphone, earphone-headphone, note-pc, etc.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/v1/models": {
+      "get": {
+        "summary": "ListModels returns a list of models available for BBTI.",
+        "operationId": "ListModels",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListModelsResponse"
+            }
+          },
+          "401": {
+            "description": "Returned when the request lacks valid authentication credentials.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "categories",
+            "description": "categories is used for filtering category in query params.\nIt expects a single or comma separated list of category keys, e.g., smartphone, earphone-headphone, note-pc, etc.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "manufacturers",
+            "description": "manufacturers is used for filtering models in query params.\nIt expects a single or comma separated list of manufacturer keys, e.g., apple, google, etc.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "series",
+            "description": "series is used for filtering series in query params.\nIt expects a single or comma separated list of series keys, e.g., iphone, pixel, etc.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "description": "pageSize is the maximum number of prices to return. The service may return fewer than this value.\nIf unspecified, at most 50 prices will be returned.\nThe maximum value is 200; values above 200 will be coerced to 200.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageToken",
+            "description": "A page token, received from a previous `ListModels` call.\nProvide this to retrieve the subsequent page.\nWhen paginating, all other parameters provided to `ListModels` must match the call that provided the page token.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/v1/prices": {
+      "get": {
+        "summary": "ListPrices returns a list of prices for given conditions.",
+        "operationId": "ListPrices",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListPricesResponse"
+            }
+          },
+          "401": {
+            "description": "Returned when the request lacks valid authentication credentials.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "programId",
+            "description": "programId is an ID given to the client to categorize the request.\nChange the value of this parameter if you are increasing the price through a campaign.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "manufacturers",
+            "description": "manufacturers is used for filtering manufacturers in query params.\nIt expects a single or comma separated list of manufacturer keys, e.g., apple, google, etc.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "series",
+            "description": "series is used for filtering series in query params.\nIt expects a single or comma separated list of series keys, e.g., iphone, pixel, etc.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "categories",
+            "description": "categories is used for filtering category in query params.\nIt expects a single or comma separated list of category keys, e.g., smartphone, tablet, etc.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "modelKey",
+            "description": "modelKey is used for filtering by model key.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "storageKey",
+            "description": "storageKey is used for filtering by storage key.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "memoryKey",
+            "description": "memoryKey is used for filtering by memory key.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "carrierKey",
+            "description": "carrierKey is used for filtering by carrier key.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "description": "pageSize is the maximum number of prices to return. The service may return fewer than this value.\nIf unspecified, at most 50 prices will be returned.\nThe maximum value is 200; values above 200 will be coerced to 200.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageToken",
+            "description": "A page token, received from a previous `ListPrices` call.\nProvide this to retrieve the subsequent page.\nWhen paginating, all other parameters provided to `ListPrices` must match the call that provided the page token.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/v1/pricing/codes": {
+      "post": {
+        "summary": "PriceByAppCode calculates grade and price based on app code.\nThe app code consists of sku, device condition and some other metadata.",
+        "operationId": "PriceByAppCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PriceByAppCodeResponse"
+            }
+          },
+          "401": {
+            "description": "Returned when the request lacks valid authentication credentials.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "PriceByAppCodeRequest is a request to price by app code.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PriceByAppCodeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/v1/pricing/products": {
+      "post": {
+        "summary": "PriceProduct calculates grade and price of given product details.",
+        "operationId": "PriceProduct",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PriceProductResponse"
+            }
+          },
+          "401": {
+            "description": "Returned when the request lacks valid authentication credentials.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "PriceProductRequest is a request to price a product.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PriceProductRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/v1/series": {
+      "get": {
+        "summary": "ListSeries returns a list of series available for BBTI.",
+        "operationId": "ListSeries",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListSeriesResponse"
+            }
+          },
+          "401": {
+            "description": "Returned when the request lacks valid authentication credentials.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "categories",
+            "description": "categories is used for filtering category in query params.\nIt expects a single or comma separated list of category keys, e.g., smartphone, earphone-headphone, note-pc, etc.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "manufacturers",
+            "description": "manufacturers is used for filtering manufacturers in query params.\nIt expects a single or comma separated list of manufacturer keys, e.g., apple, google, etc.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    },
+    "/v1/transactions/{transactionId}": {
+      "get": {
+        "summary": "GetTransaction gets transaction information by transaction ID.",
+        "operationId": "GetTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetTransactionResponse"
+            }
+          },
+          "401": {
+            "description": "Returned when the request lacks valid authentication credentials.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "transactionId is the ID issued when you apply for a trade-in.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BBTIService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "v1TransactionProduct": {
+      "type": "object",
+      "properties": {
+        "offeredModelName": {
+          "type": "string",
+          "description": "offeredModelName is the product model name that is offered to the user."
+        },
+        "offeredStorageName": {
+          "type": "string",
+          "description": "offeredStorageName is the product storage name that is offered to the user."
+        },
+        "offeredMemoryName": {
+          "type": "string",
+          "description": "offeredMemoryName is the product memory name that is offered to the user."
+        },
+        "offeredCarrierName": {
+          "type": "string",
+          "description": "offeredCarrierName is the product carrier name that is offered to the user."
+        },
+        "offeredGrade": {
+          "$ref": "#/definitions/v1Grade",
+          "description": "offeredGrade is the product grade that is offered to the user."
+        },
+        "offeredPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "offeredPrice is used to indicate the offered price.\nThis field is the calculated price including deltaPrice."
+        },
+        "confirmedModelName": {
+          "type": "string",
+          "description": "confirmedModelName is used to indicate the confirmed model name. If the value is not confirmed, it is empty."
+        },
+        "confirmedStorageName": {
+          "type": "string",
+          "description": "confirmedStorageName is used to indicate the confirmed storage name. If the value is not confirmed, it is empty."
+        },
+        "confirmedMemoryName": {
+          "type": "string",
+          "description": "confirmedMemoryName is used to indicate the confirmed memory name. If the value is not confirmed, it is empty."
+        },
+        "confirmedCarrierName": {
+          "type": "string",
+          "description": "confirmedCarrierName is used to indicate the confirmed carrier name. If the value is not confirmed, it is empty."
+        },
+        "confirmedGrade": {
+          "$ref": "#/definitions/v1Grade",
+          "description": "confirmedGrade is used to indicate the confirmed grade. If the value is not confirmed, it is empty."
+        },
+        "confirmedPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "confirmedPrice is used to indicate the confirmed price. If the value is not confirmed, it is zero.\nThis field is the calculated price including deltaPrice."
+        }
+      }
+    },
+    "v1Carrier": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "example": "simfree"
+        },
+        "value": {
+          "type": "string",
+          "example": "SIMフリー版"
+        }
+      }
+    },
+    "v1Category": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "example": "smartphone"
+        },
+        "value": {
+          "type": "string",
+          "example": "スマートフォン"
+        }
+      }
+    },
+    "v1Condition": {
+      "type": "string",
+      "enum": [
+        "CONDITION_UNSPECIFIED",
+        "CONDITION_PASS",
+        "CONDITION_FAIL"
+      ],
+      "default": "CONDITION_UNSPECIFIED",
+      "description": "Condition represents condition selections for trade-ins."
+    },
+    "v1DeliveryDetail": {
+      "type": "object",
+      "properties": {
+        "deliveryPattern": {
+          "$ref": "#/definitions/v1DeliveryPattern",
+          "description": "deliveryPattern is the delivery method selected by the user."
+        },
+        "trackingNumber": {
+          "type": "string",
+          "description": "trackingNumber is an optional field that is used for tracking the delivery."
+        },
+        "reservationId": {
+          "type": "string",
+          "description": "reservationId like the reservationPw, is used to refer to the slip information during exceptions such as when the QR code cannot be read."
+        },
+        "reservationPw": {
+          "type": "string",
+          "description": "reservationPw like the reservationId, is used to refer to the slip information during exceptions such as when the QR code cannot be read."
+        },
+        "pickupDate": {
+          "$ref": "#/definitions/typeDate",
+          "description": "pickupDate is the scheduled pickup date when deliveryPattern is PICKUP."
+        },
+        "pickupTime": {
+          "$ref": "#/definitions/v1PickupTime",
+          "description": "pickupTime is the scheduled pickup time frame when deliveryPattern is PICKUP."
+        },
+        "bringInExpirationDate": {
+          "$ref": "#/definitions/typeDate",
+          "description": "bringInExpirationDate is the expiration date for bringing in to the delivery provider.\nThis field is the expiry date defined by BBTI and may differ from the actual expiration date when you bring it to your delivery provider."
+        },
+        "qrCode": {
+          "type": "string",
+          "description": "qrCode is used by the delivery provider to issue an invoice and tracking number when the user chooses to BRING_IN.\nThis field returns the image/png data converted into a base64 string."
+        },
+        "barcode": {
+          "type": "string",
+          "description": "barcode is used by the delivery provider to issue an invoice and tracking number when the user chooses to BRING_IN.\nThis field returns the image/png data converted into a base64 string."
+        }
+      }
+    },
+    "v1DeliveryPattern": {
+      "type": "string",
+      "enum": [
+        "DELIVERY_PATTERN_UNSPECIFIED",
+        "DELIVERY_PATTERN_PICKUP",
+        "DELIVERY_PATTERN_BRING_IN"
+      ],
+      "default": "DELIVERY_PATTERN_UNSPECIFIED",
+      "description": "DeliveryPattern represents the delivery pattern types for BBTI User."
+    },
+    "v1GetTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "transactionId is the ID issued when you apply for a trade-in."
+        },
+        "dealId": {
+          "type": "string",
+          "description": "dealId is an ID in BBTI to track a deal."
+        },
+        "status": {
+          "$ref": "#/definitions/v1TransactionStatus",
+          "description": "status is the current status of the transaction."
+        },
+        "product": {
+          "$ref": "#/definitions/v1TransactionProduct",
+          "description": "product contains information at the time of application and confirmed information after inspection."
+        },
+        "deliveryDetail": {
+          "$ref": "#/definitions/v1DeliveryDetail",
+          "description": "deliveryDetail contains information about your delivery, excluding personal information."
+        }
+      },
+      "description": "GetTransactionResponse is the response for getting transaction information."
+    },
+    "v1Grade": {
+      "type": "string",
+      "enum": [
+        "GRADE_UNSPECIFIED",
+        "GRADE_A",
+        "GRADE_B",
+        "GRADE_C",
+        "GRADE_D"
+      ],
+      "default": "GRADE_UNSPECIFIED",
+      "description": "Grade represents a condition grade calculated based on the condition of the product."
+    },
+    "v1GradePrice": {
+      "type": "object",
+      "properties": {
+        "grade": {
+          "$ref": "#/definitions/v1Grade",
+          "description": "grade is the condition grade of the product."
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "price is the price per grade.\nThe unit is JPY, and it represents the total price including deltaPrice."
+        },
+        "deltaPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "deltaPrice is the campaign's price difference relative to the base price."
+        }
+      },
+      "description": "GradePrice is a model that associates grade and price."
+    },
+    "v1ListManufacturersResponse": {
+      "type": "object",
+      "properties": {
+        "manufacturers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Manufacturer"
+          }
+        }
+      },
+      "description": "ListManufacturersResponse is the response for listing manufacturers."
+    },
+    "v1ListModelsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "description": "A token to retrieve the next page of results.\nPass this value in the pageToken field in the subsequent call to `ListModels` to retrieve the next page.\nIf there is no next page, this will be an empty string."
+        },
+        "models": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ModelAttributes"
+          },
+          "description": "models is the list of model information."
+        }
+      },
+      "description": "ListModelsResponse is the response for listing models."
+    },
+    "v1ListPricesResponse": {
+      "type": "object",
+      "properties": {
+        "nextPageToken": {
+          "type": "string",
+          "description": "A token to retrieve the next page of results.\nPass this value in the pageToken field in the subsequent call to `ListPrices` to retrieve the next page.\nIf there is no next page, this will be an empty string."
+        },
+        "models": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ModelPrice"
+          },
+          "description": "models is the list of model information and prices."
+        }
+      },
+      "description": "ListPricesResponse is the response for listing prices."
+    },
+    "v1ListSeriesResponse": {
+      "type": "object",
+      "properties": {
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SeriesAttributes"
+          }
+        }
+      },
+      "description": "ListSeriesResponse is the response for listing series."
+    },
+    "v1Manufacturer": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "example": "apple"
+        },
+        "value": {
+          "type": "string",
+          "example": "Apple"
+        }
+      }
+    },
+    "v1Memory": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "example": "8gb"
+        },
+        "value": {
+          "type": "string",
+          "example": "8GB"
+        }
+      }
+    },
+    "v1Model": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "example": "iphone-8"
+        },
+        "value": {
+          "type": "string",
+          "example": "iPhone 8"
+        }
+      }
+    },
+    "v1ModelPrice": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "$ref": "#/definitions/v1Model",
+          "description": "model is the model information."
+        },
+        "storages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Storage"
+          },
+          "description": "storages is the list of storage options available for this model."
+        },
+        "memories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Memory"
+          },
+          "description": "memories is the list of memory options available for this model."
+        },
+        "carriers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Carrier"
+          },
+          "description": "carriers is the list of carrier options available for this model."
+        },
+        "category": {
+          "$ref": "#/definitions/v1Category",
+          "description": "category is the category information."
+        },
+        "series": {
+          "$ref": "#/definitions/v1Series",
+          "description": "series is the series information."
+        },
+        "prices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1PricingUnit"
+          },
+          "description": "prices is a list of price information per price unit."
+        }
+      },
+      "description": "ModelPrice contains detailed information about a model including pricing."
+    },
+    "v1PickupTime": {
+      "type": "string",
+      "enum": [
+        "PICKUP_TIME_UNSPECIFIED",
+        "PICKUP_TIME_ALL_DAY",
+        "PICKUP_TIME_TO_13",
+        "PICKUP_TIME_14_TO_16",
+        "PICKUP_TIME_16_TO_18",
+        "PICKUP_TIME_17_TO_1830"
+      ],
+      "default": "PICKUP_TIME_UNSPECIFIED",
+      "description": "PickupTime represents the time frame types for pickup.\n\n - PICKUP_TIME_ALL_DAY: PICKUP_TIME_ALL_DAY indicates that you do not specify a pick-up time and are available all day.\n - PICKUP_TIME_TO_13: PICKUP_TIME_TO_13 time range is `-13:00`.\n - PICKUP_TIME_14_TO_16: PICKUP_TIME_14_TO_16 time range is `14:00-16:00`.\n - PICKUP_TIME_16_TO_18: PICKUP_TIME_16_TO_18 time range is `16:00-18:00`.\n - PICKUP_TIME_17_TO_1830: PICKUP_TIME_17_TO_1830 time range is `17:00-18:30`."
+    },
+    "v1ProductCondition": {
+      "type": "object",
+      "properties": {
+        "functionality": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if there are no functional defects such as not turning on."
+        },
+        "appearance": {
+          "$ref": "#/definitions/v1Condition",
+          "description": "OK if there are no appearance defects such as a cracked screen."
+        }
+      },
+      "description": "ProductCondition represents the condition of a product based on the inspection.\nNot all fields are used by the product. It depends on the product type."
+    },
+    "v1RegisterDeliveryRequest": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "transactionId is the ID issued when you apply for a trade-in."
+        },
+        "deliveryPattern": {
+          "$ref": "#/definitions/v1DeliveryPattern",
+          "description": "deliveryPattern is the delivery method (PICKUP or BRING_IN)."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "lastName is the user's last name."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "firstName is the user's first name."
+        },
+        "lastNameKana": {
+          "type": "string",
+          "description": "lastNameKana is the user's last name in kana."
+        },
+        "firstNameKana": {
+          "type": "string",
+          "description": "firstNameKana is the user's first name in kana."
+        },
+        "zip": {
+          "type": "string",
+          "description": "zip is the zip code."
+        },
+        "state": {
+          "type": "string",
+          "description": "state is the prefecture in Japan."
+        },
+        "city": {
+          "type": "string",
+          "description": "city is the city name (Ku level in Japan)."
+        },
+        "address": {
+          "type": "string",
+          "description": "address is the user's address."
+        },
+        "building": {
+          "type": "string",
+          "description": "building is an optional field for the building name and room number."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "phoneNumber is the user's phone number."
+        },
+        "pickupDate": {
+          "$ref": "#/definitions/typeDate",
+          "description": "pickupDate is the scheduled pickup date.\nThis is only used when deliveryPattern is PICKUP."
+        },
+        "pickupTime": {
+          "$ref": "#/definitions/v1PickupTime",
+          "description": "pickupTime is the scheduled pickup time frame.\nThis is only used when deliveryPattern is PICKUP."
+        }
+      },
+      "description": "RegisterDeliveryRequest is a request to register delivery information."
+    },
+    "v1RegisterDeliveryResponse": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "transactionId is the ID issued when you apply for a trade-in."
+        },
+        "deliveryDetail": {
+          "$ref": "#/definitions/v1DeliveryDetail",
+          "description": "deliveryDetail contains information about your delivery, excluding personal information."
+        }
+      },
+      "description": "RegisterDeliveryResponse is the response for delivery registration."
+    },
+    "v1Series": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "example": "iphone"
+        },
+        "value": {
+          "type": "string",
+          "example": "iPhone"
+        }
+      }
+    },
+    "v1Storage": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "example": "64gb"
+        },
+        "value": {
+          "type": "string",
+          "example": "64GB"
+        }
+      }
+    },
+    "v1TransactionStatus": {
+      "type": "string",
+      "enum": [
+        "TRANSACTION_STATUS_UNSPECIFIED",
+        "TRANSACTION_STATUS_KYC_APPLIED",
+        "TRANSACTION_STATUS_KYC_VERIFIED",
+        "TRANSACTION_STATUS_KYC_DECLINED",
+        "TRANSACTION_STATUS_DELIVERY_REGISTERED",
+        "TRANSACTION_STATUS_DELIVERY_SHIPPED",
+        "TRANSACTION_STATUS_DELIVERY_RECEIVED",
+        "TRANSACTION_STATUS_DEVICE_REGISTERED",
+        "TRANSACTION_STATUS_GRADE_CONFIRMED",
+        "TRANSACTION_STATUS_PAYMENT_PENDING",
+        "TRANSACTION_STATUS_PAYMENT_FAILED",
+        "TRANSACTION_STATUS_CLOSE",
+        "TRANSACTION_STATUS_CANCEL"
+      ],
+      "default": "TRANSACTION_STATUS_UNSPECIFIED",
+      "description": "TransactionStatus represents the transaction status types for BBTI User."
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": ""
+          }
+        }
+      }
+    },
+    "typeDate": {
+      "type": "object",
+      "properties": {
+        "year": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Year of the date. Must be from 1 to 9999, or 0 to specify a date without\na year."
+        },
+        "month": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Month of a year. Must be from 1 to 12, or 0 to specify a year without a\nmonth and day."
+        },
+        "day": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Day of a month. Must be from 1 to 31 and valid for the year and month, or 0\nto specify a year by itself or a year and month where the day isn't\nsignificant."
+        }
+      },
+      "description": "Represents a whole or partial calendar date, such as a birthday. The time of\nday and time zone are either specified elsewhere or are insignificant. The\ndate is relative to the Gregorian Calendar.",
+      "title": "Date"
+    },
+    "v1IssueEKYCApplicationURLRequest": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "transactionId is the ID issued when you apply for a trade-in."
+        },
+        "userIdInPartner": {
+          "type": "string",
+          "description": "userIdInPartner is an optional field that indicates the user ID in the partner system."
+        },
+        "email": {
+          "type": "string",
+          "description": "email is the user's email address.\nThis must be a valid address where you can actually receive email."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "lastName is the user's last name."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "firstName is the user's first name."
+        },
+        "lastNameKana": {
+          "type": "string",
+          "description": "lastNameKana is the user's last name in kana."
+        },
+        "firstNameKana": {
+          "type": "string",
+          "description": "firstNameKana is the user's first name in kana."
+        },
+        "dateOfBirth": {
+          "$ref": "#/definitions/typeDate",
+          "description": "dateOfBirth is the user's date of birth."
+        },
+        "zip": {
+          "type": "string",
+          "description": "zip is the zip code."
+        },
+        "state": {
+          "type": "string",
+          "description": "state is the prefecture in Japan."
+        },
+        "city": {
+          "type": "string",
+          "description": "city is the city name (Ku level in Japan)."
+        },
+        "address": {
+          "type": "string",
+          "description": "address is the user's address."
+        },
+        "occupation": {
+          "type": "string",
+          "description": "occupation is the user's occupation."
+        },
+        "redirectUrl": {
+          "type": "string",
+          "description": "redirectUrl is an optional field that is defined by client side to redirect after eKYC application.\nDomains that can be specified as redirect URLs must be notified to Belong before being sent via the API."
+        }
+      },
+      "description": "IssueEKYCApplicationURLRequest is a request to issue eKYC application URL.\nThis request requires personal information of the user.\nOnce registered, the information cannot be changed or retrieved via API."
+    },
+    "v1IssueEKYCApplicationURLResponse": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "transactionId is the ID issued when you apply for a trade-in."
+        },
+        "url": {
+          "type": "string",
+          "description": "url is the URL for applying for eKYC."
+        }
+      },
+      "description": "IssueEKYCApplicationURLResponse is the response for eKYC application URL."
+    },
+    "v1ModelAttributes": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "$ref": "#/definitions/v1Model",
+          "description": "model is the model information."
+        },
+        "storages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Storage"
+          },
+          "description": "storages is the list of storage options."
+        },
+        "memories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Memory"
+          },
+          "description": "memories is the list of memory options."
+        },
+        "carriers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Carrier"
+          },
+          "description": "carriers is the list of carrier options."
+        },
+        "category": {
+          "$ref": "#/definitions/v1Category",
+          "description": "category is the category information."
+        },
+        "manufacturer": {
+          "$ref": "#/definitions/v1Manufacturer",
+          "description": "manufacturer is the manufacturer information."
+        },
+        "series": {
+          "$ref": "#/definitions/v1Series",
+          "description": "series is the series information."
+        }
+      },
+      "description": "ModelAttributes contains model information with available options."
+    },
+    "v1PriceByAppCodeRequest": {
+      "type": "object",
+      "properties": {
+        "programId": {
+          "type": "string",
+          "description": "programId is an ID given to the client to categorize the request.\nChange the value of this parameter if you are increasing the price through a campaign."
+        },
+        "submissionId": {
+          "type": "string",
+          "description": "submissionId is an optional field that can track the transaction by the API caller.\nAs this relates to a trade-in transaction, you should specify information like the order ID from the original purchase."
+        },
+        "appCode": {
+          "type": "string",
+          "description": "appCode contains version, sku, product condition, and others. Used to define the grade and calculate the price."
+        },
+        "campaignCode": {
+          "type": "string",
+          "description": "campaignCode is an optional field to apply the campaign price."
+        }
+      },
+      "description": "PriceByAppCodeRequest is a request to price by app code."
+    },
+    "v1PriceByAppCodeResponse": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "transactionId is an ID in BBTI to track a transaction."
+        },
+        "model": {
+          "$ref": "#/definitions/v1Model",
+          "description": "model contains the model key and the formal name of the model."
+        },
+        "storage": {
+          "$ref": "#/definitions/v1Storage",
+          "description": "storage contains the storage key and the formal name of the storage."
+        },
+        "memory": {
+          "$ref": "#/definitions/v1Memory",
+          "description": "memory contains memory information including key, formal name."
+        },
+        "carrier": {
+          "$ref": "#/definitions/v1Carrier",
+          "description": "carrier contains carrier information including key and formal name of carrier."
+        },
+        "grade": {
+          "$ref": "#/definitions/v1Grade",
+          "description": "grade is the calculated grade based on the condition of the product."
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "price is the price per grade.\nThe unit is JPY, and it represents the total price including deltaPrice."
+        },
+        "deltaPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "deltaPrice is the campaign's price difference relative to the base price."
+        }
+      },
+      "description": "PriceByAppCodeResponse is the response for pricing by app code."
+    },
+    "v1PriceProductRequest": {
+      "type": "object",
+      "properties": {
+        "programId": {
+          "type": "string",
+          "description": "programId is an ID given to the client to categorize the request.\nChange the value of this parameter if you are increasing the price through a campaign."
+        },
+        "submissionId": {
+          "type": "string",
+          "description": "submissionId is an optional field that can track the transaction by the API caller.\nAs this relates to a trade-in transaction, you should specify information like the order ID from the original purchase."
+        },
+        "modelKey": {
+          "type": "string",
+          "description": "modelKey is a field that is used for specifying pricing unit."
+        },
+        "storageKey": {
+          "type": "string",
+          "description": "storageKey is a field that is used for specifying pricing unit. It is optional for earphone."
+        },
+        "memoryKey": {
+          "type": "string",
+          "description": "memoryKey is a field that is used for specifying pricing unit. It is optional for smartphone and earphone."
+        },
+        "carrierKey": {
+          "type": "string",
+          "description": "carrierKey is an optional field that is used for specifying sku."
+        },
+        "condition": {
+          "$ref": "#/definitions/v1ProductCondition",
+          "description": "condition is the condition of the product used to calculate the grade."
+        },
+        "campaignCode": {
+          "type": "string",
+          "description": "campaignCode is an optional field to apply the campaign price."
+        }
+      },
+      "description": "PriceProductRequest is a request to price a product."
+    },
+    "v1PriceProductResponse": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "transactionId is an ID in BBTI to track a transaction."
+        },
+        "model": {
+          "$ref": "#/definitions/v1Model",
+          "description": "model contains the model key and the formal name of the model."
+        },
+        "storage": {
+          "$ref": "#/definitions/v1Storage",
+          "description": "storage contains the storage key and the formal name of the storage."
+        },
+        "memory": {
+          "$ref": "#/definitions/v1Memory",
+          "description": "memory contains memory information including key, formal name."
+        },
+        "carrier": {
+          "$ref": "#/definitions/v1Carrier",
+          "description": "carrier contains carrier information including key and formal name of carrier."
+        },
+        "grade": {
+          "$ref": "#/definitions/v1Grade",
+          "description": "grade is the calculated grade based on the condition of the product."
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "price is the price per grade.\nThe unit is JPY, and it represents the total price including deltaPrice."
+        },
+        "deltaPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "deltaPrice is the campaign's price difference relative to the base price."
+        }
+      },
+      "description": "PriceProductResponse is the response for product pricing."
+    },
+    "v1PricingUnit": {
+      "type": "object",
+      "properties": {
+        "storage": {
+          "$ref": "#/definitions/v1Storage",
+          "description": "storage is the storage information."
+        },
+        "memory": {
+          "$ref": "#/definitions/v1Memory",
+          "description": "memory is the memory information."
+        },
+        "carrier": {
+          "$ref": "#/definitions/v1Carrier",
+          "description": "carrier is the carrier information."
+        },
+        "gradePrices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1GradePrice"
+          },
+          "description": "gradePrices is the list of prices for each grade."
+        }
+      },
+      "description": "PricingUnit contains pricing information for a specific SKU configuration."
+    },
+    "v1SeriesAttributes": {
+      "type": "object",
+      "properties": {
+        "series": {
+          "$ref": "#/definitions/v1Series",
+          "description": "series is the series information."
+        },
+        "category": {
+          "$ref": "#/definitions/v1Category",
+          "description": "category is the category information."
+        },
+        "manufacturer": {
+          "$ref": "#/definitions/v1Manufacturer",
+          "description": "manufacturer is the manufacturer information."
+        },
+        "numberOfModels": {
+          "type": "integer",
+          "format": "int64",
+          "description": "numberOfModels is the number of all models in the series."
+        }
+      },
+      "description": "SeriesAttributes contains series information with related metadata."
+    }
+  },
+  "securityDefinitions": {
+    "OAuth2": {
+      "type": "oauth2",
+      "description": "OAuth2 Client Credentials flow. Include the access token in the Authorization header as 'Bearer {token}'.",
+      "flow": "application",
+      "tokenUrl": "https://${AUTH_SERVER}/auth/v1/token"
+    }
+  },
+  "security": [
+    {
+      "OAuth2": []
+    }
+  ],
+  "externalDocs": {
+    "description": "bbti-api-docs",
+    "url": "https://github.com/belong-inc/bbti-api-docs"
+  }
+}

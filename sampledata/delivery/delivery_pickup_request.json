@@ -1,0 +1,20 @@
+{
+  "transactionId": "transaction123",
+  "deliveryPattern": "DELIVERY_PATTERN_PICKUP",
+  "lastName": "Belong",
+  "firstName": "Taro",
+  "lastNameKana": "ビロング",
+  "firstNameKana": "タロウ",
+  "zip": "1070052",
+  "state": "東京都",
+  "city": "港区",
+  "address": "赤坂６丁目４−１０",
+  "building": "ZENビル ４F",
+  "phoneNumber": "08000000000",
+  "pickupDate": {
+    "year": 2025,
+    "month": 12,
+    "day": 31
+  },
+  "pickupTime": "PICKUP_TIME_ALL_DAY"
+}
