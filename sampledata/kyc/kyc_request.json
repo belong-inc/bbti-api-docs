@@ -1,0 +1,18 @@
+{
+  "transactionId": "transaction123",
+  "userIdInPartner": "order123",
+  "email": "test@belong.com",
+  "lastName": "Belong",
+  "firstName": "Taro",
+  "dateOfBirth": {
+    "year": 2000,
+    "month": 1,
+    "day": 1
+  },
+  "zip": "1070052",
+  "state": "東京都",
+  "city": "港区",
+  "address": "赤坂６丁目４−１０ ZENビル 4F",
+  "occupation": "Engineer",
+  "redirectUrl": "https://belong.co.jp"
+}
