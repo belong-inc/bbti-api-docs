@@ -1015,7 +1015,7 @@
         "PRICING_REVISE_PROGRAM_EXPIRED"
       ],
       "default": "PRICING_REVISE_UNSPECIFIED",
-      "description": "PricingRevise represents additional information about pricing.\nIt is used when something in the pricing process needs to be reported to the client.\n\n - PRICING_REVISE_CAMPAIGN_CODE_INVALID: PRICING_REVISE_CAMPAIGN_CODE_INVALID indicates that the campaign code does not exist for the partner or has reached its usage limit.\n - PRICING_REVISE_CAMPAIGN_CODE_EXPIRED: PRICING_REVISE_CAMPAIGN_CODE_EXPIRED indicates that the campaign is outside its valid period, either before it starts or after it ends.\n - PRICING_REVISE_CAMPAIGN_CODE_NOT_APPLICABLE: PRICING_REVISE_CAMPAIGN_CODE_NOT_APPLICABLE indicates that the campaign does not increase the price of the product.\n - PRICING_REVISE_PROGRAM_EXPIRED: PRICING_REVISE_PROGRAM_EXPIRED indicates that the program specified in programId is outside its valid period."
+      "description": "PricingRevise represents additional information about pricing.\nIt is used when something in the pricing process needs to be reported to the client.\n\n - PRICING_REVISE_CAMPAIGN_CODE_INVALID: PRICING_REVISE_CAMPAIGN_CODE_INVALID indicates that the campaign code does not exist for the partner or has reached its usage limit.\n - PRICING_REVISE_CAMPAIGN_CODE_EXPIRED: PRICING_REVISE_CAMPAIGN_CODE_EXPIRED indicates that the campaign is outside its valid period, either before it starts or after it ends.\n - PRICING_REVISE_CAMPAIGN_CODE_NOT_APPLICABLE: PRICING_REVISE_CAMPAIGN_CODE_NOT_APPLICABLE indicates that the product is not eligible for the campaign of the code.\n - PRICING_REVISE_PROGRAM_EXPIRED: PRICING_REVISE_PROGRAM_EXPIRED indicates that the program specified in programId is outside its valid period. In this case, the price is calculated with your default program instead of the specified program."
     },
     "v1ProductCondition": {
       "type": "object",
@@ -1380,7 +1380,7 @@
           "items": {
             "$ref": "#/definitions/v1PricingRevise"
           },
-          "description": "pricingRevises is a list of revisions made in pricing.\nThis is used to notify the client that the price has been revised.\nIt is empty when nothing was revised. In JSON, the field is omitted when it is empty."
+          "description": "pricingRevises is a list of revisions made in pricing.\nThis lists the reasons why the specified campaign code or program was not used.\nIt is empty when nothing was revised. In JSON, the field is omitted when it is empty."
         }
       },
       "description": "PriceByAppCodeResponse is the response for pricing by app code."
@@ -1465,7 +1465,7 @@
           "items": {
             "$ref": "#/definitions/v1PricingRevise"
           },
-          "description": "pricingRevises is a list of revisions made in pricing.\nThis is used to notify the client that the price has been revised.\nIt is empty when nothing was revised. In JSON, the field is omitted when it is empty."
+          "description": "pricingRevises is a list of revisions made in pricing.\nThis lists the reasons why the specified campaign code or program was not used.\nIt is empty when nothing was revised. In JSON, the field is omitted when it is empty."
         }
       },
       "description": "PriceProductResponse is the response for product pricing."
