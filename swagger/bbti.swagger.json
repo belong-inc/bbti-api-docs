@@ -1005,6 +1005,18 @@
       "default": "PICKUP_TIME_UNSPECIFIED",
       "description": "PickupTime represents the time frame types for pickup.\n\n - PICKUP_TIME_ALL_DAY: PICKUP_TIME_ALL_DAY indicates that you do not specify a pick-up time and are available all day.\n - PICKUP_TIME_TO_13: PICKUP_TIME_TO_13 time range is `-13:00`.\n - PICKUP_TIME_14_TO_16: PICKUP_TIME_14_TO_16 time range is `14:00-16:00`.\n - PICKUP_TIME_16_TO_18: PICKUP_TIME_16_TO_18 time range is `16:00-18:00`.\n - PICKUP_TIME_17_TO_1830: PICKUP_TIME_17_TO_1830 time range is `17:00-18:30`."
     },
+    "v1PricingRevise": {
+      "type": "string",
+      "enum": [
+        "PRICING_REVISE_UNSPECIFIED",
+        "PRICING_REVISE_CAMPAIGN_CODE_INVALID",
+        "PRICING_REVISE_CAMPAIGN_CODE_EXPIRED",
+        "PRICING_REVISE_CAMPAIGN_CODE_NOT_APPLICABLE",
+        "PRICING_REVISE_PROGRAM_EXPIRED"
+      ],
+      "default": "PRICING_REVISE_UNSPECIFIED",
+      "description": "PricingRevise represents additional information about pricing.\nIt is used when something in the pricing process needs to be reported to the client.\n\n - PRICING_REVISE_CAMPAIGN_CODE_INVALID: PRICING_REVISE_CAMPAIGN_CODE_INVALID indicates that the campaign code does not exist for the partner or has reached its usage limit.\n - PRICING_REVISE_CAMPAIGN_CODE_EXPIRED: PRICING_REVISE_CAMPAIGN_CODE_EXPIRED indicates that the campaign is outside its valid period, either before it starts or after it ends.\n - PRICING_REVISE_CAMPAIGN_CODE_NOT_APPLICABLE: PRICING_REVISE_CAMPAIGN_CODE_NOT_APPLICABLE indicates that the product is not eligible for the campaign of the code.\n - PRICING_REVISE_PROGRAM_EXPIRED: PRICING_REVISE_PROGRAM_EXPIRED indicates that the program specified in programId is outside its valid period. In this case, the price is calculated with your default program instead of the specified program."
+    },
     "v1ProductCondition": {
       "type": "object",
       "properties": {
@@ -1321,7 +1333,7 @@
         },
         "campaignCode": {
           "type": "string",
-          "description": "campaignCode is an optional field to apply the campaign price."
+          "description": "campaignCode is an optional field to apply the campaign price.\nIf the code is applied, the price is calculated with the campaign of the code instead of the program specified in programId.\nIf the code cannot be applied, the price without the code is returned with the reason in pricingRevises.\nThe code was applied if pricingRevises has no PRICING_REVISE_CAMPAIGN_CODE_* value. Do not use deltaPrice to check this."
         }
       },
       "description": "PriceByAppCodeRequest is a request to price by app code."
@@ -1362,6 +1374,13 @@
           "type": "integer",
           "format": "int64",
           "description": "deltaPrice is the campaign's price difference relative to the base price."
+        },
+        "pricingRevises": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PricingRevise"
+          },
+          "description": "pricingRevises is a list of revisions made in pricing.\nThis lists the reasons why the specified campaign code or program was not used.\nIt is empty when nothing was revised. In JSON, the field is omitted when it is empty."
         }
       },
       "description": "PriceByAppCodeResponse is the response for pricing by app code."
@@ -1399,7 +1418,7 @@
         },
         "campaignCode": {
           "type": "string",
-          "description": "campaignCode is an optional field to apply the campaign price."
+          "description": "campaignCode is an optional field to apply the campaign price.\nIf the code is applied, the price is calculated with the campaign of the code instead of the program specified in programId.\nIf the code cannot be applied, the price without the code is returned with the reason in pricingRevises.\nThe code was applied if pricingRevises has no PRICING_REVISE_CAMPAIGN_CODE_* value. Do not use deltaPrice to check this."
         }
       },
       "description": "PriceProductRequest is a request to price a product."
@@ -1440,6 +1459,13 @@
           "type": "integer",
           "format": "int64",
           "description": "deltaPrice is the campaign's price difference relative to the base price."
+        },
+        "pricingRevises": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PricingRevise"
+          },
+          "description": "pricingRevises is a list of revisions made in pricing.\nThis lists the reasons why the specified campaign code or program was not used.\nIt is empty when nothing was revised. In JSON, the field is omitted when it is empty."
         }
       },
       "description": "PriceProductResponse is the response for product pricing."
@@ -1499,7 +1525,8 @@
       "type": "oauth2",
       "description": "OAuth2 Client Credentials flow. Include the access token in the Authorization header as 'Bearer {token}'.",
       "flow": "application",
-      "tokenUrl": "https://${AUTH_SERVER}/auth/v1/token"
+      "tokenUrl": "https://${AUTH_SERVER}/auth/v1/token",
+      "scopes": {}
     }
   },
   "security": [
